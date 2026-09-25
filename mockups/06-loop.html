@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowwork · 06 Loop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#C1FF72;--ink:#0A0A0A;--paper:#F7F7F5;--card:#FFFFFF;--muted:#6A6A64;--faint:#A5A59E;--line:#E4E4DE;--gray:#8A8A8A}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.eyebrow{font-size:14px;color:var(--muted);display:inline-flex;align-items:center;gap:10px}
+.eyebrow svg{width:16px;height:16px}
+
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:84px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:22px;letter-spacing:-.055em}
+.logo svg{flex:none;width:26px;height:26px}
+.nav nav{display:flex;gap:34px;font-size:15px;color:var(--muted)}
+.nav nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-weight:500;font-size:16px;transition:background .25s,color .25s,box-shadow .25s}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{box-shadow:0 0 0 5px rgba(193,255,114,.7)}
+.btn-soft{background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.btn-soft:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+.btn-lime{background:var(--lime);color:var(--ink)}
+.btn-lime:hover{background:#d3ff9a}
+.btn.sm{height:42px;padding:0 20px;font-size:14.5px}
+
+/* hero */
+.hero{text-align:center;padding:70px 0 20px}
+h1{font-size:clamp(46px,6.6vw,100px);line-height:1;letter-spacing:-.055em;font-weight:500;margin-top:26px}
+h1 span{color:var(--gray)}
+.hero .sub{max-width:640px;margin:28px auto 0;font-size:19px;color:var(--muted)}
+.hero .ctas{display:flex;justify-content:center;gap:12px;margin-top:36px;flex-wrap:wrap}
+
+/* ring */
+.ring-wrap{position:relative;width:min(640px,100%);aspect-ratio:1;margin:40px auto 0}
+.ring-wrap svg{width:100%;height:100%;overflow:visible}
+.ring-center{position:absolute;inset:26%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.ring-center .num{font-size:13px;color:var(--faint);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.ring-center .ttl{font-size:clamp(24px,3vw,36px);letter-spacing:-.045em;font-weight:600;line-height:1.05;margin-top:10px}
+.ring-center .one{font-size:15px;color:var(--muted);margin-top:10px;max-width:240px;line-height:1.45}
+.ring-center .swap{transition:opacity .35s,transform .35s}
+.ring-center .swap.out{opacity:0;transform:translateY(6px)}
+.node{cursor:pointer}
+.node circle{transition:r .35s,fill .35s,stroke .35s}
+.node text{font-family:Inter;font-size:15px;font-weight:500;fill:var(--muted);transition:fill .35s}
+.node.on text{fill:var(--ink)}
+.node.on circle.dotc{fill:var(--lime);stroke:var(--ink);r:13}
+.node:hover circle.dotc{stroke:var(--ink)}
+.ring-note{font-size:13px;color:var(--faint);text-align:center;margin-top:10px}
+
+/* steps */
+.sec{padding:140px 0}
+.sec-head{text-align:center;max-width:760px;margin:0 auto 80px}
+h2{font-size:clamp(36px,4.4vw,62px);line-height:1.02;letter-spacing:-.05em;font-weight:500;margin-top:18px}
+h2 span{color:var(--gray)}
+.sec-head p{color:var(--muted);font-size:18px;margin-top:18px}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.sticky{position:sticky;top:90px;height:calc(100vh - 120px);max-height:620px;display:flex;align-items:center}
+.sticky .ring-wrap{margin:0;width:100%}
+.step{min-height:min(74vh,660px);display:flex;flex-direction:column;justify-content:center;padding:40px 0}
+.step .n{font-size:13px;color:var(--faint);font-variant-numeric:tabular-nums}
+.step h3{font-size:clamp(30px,3vw,44px);letter-spacing:-.045em;font-weight:500;line-height:1.05;margin-top:12px}
+.step p{color:var(--muted);margin-top:14px;max-width:440px}
+.step .pk{margin-top:14px;font-size:13.5px;color:var(--ink);display:inline-flex;align-items:center;gap:8px}
+.step .pk::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 1px var(--ink)}
+.chat{margin-top:28px;background:var(--card);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:7px;max-width:440px;box-shadow:0 1px 0 var(--line),0 20px 50px rgba(0,0,0,.05)}
+.msg{max-width:85%;padding:9px 13px 8px;border-radius:16px;font-size:14.5px;line-height:1.42}
+.msg.in{align-self:flex-start;background:#F1F1EC;border-bottom-left-radius:5px}
+.msg.out{align-self:flex-end;background:var(--lime);border-bottom-right-radius:5px}
+.btns{display:flex;gap:6px;flex-wrap:wrap}
+.btns span{font-size:13.5px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:500}
+.sysline{align-self:center;font-size:12px;color:var(--faint)}
+.branch{margin-top:40px;border-radius:28px;background:var(--card);padding:34px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;box-shadow:0 1px 0 var(--line)}
+.branch .ic{width:64px;height:64px;border-radius:50%;background:var(--paper);display:grid;place-items:center}
+.branch h4{font-size:24px;font-weight:500;letter-spacing:-.035em}
+.branch p{color:var(--muted);font-size:16px;margin-top:4px}
+
+/* packages */
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pkg{background:var(--card);border-radius:32px;padding:34px;display:flex;flex-direction:column;box-shadow:0 1px 0 var(--line)}
+.pkg .mini{width:92px;height:92px}
+.pkg .top{display:flex;justify-content:space-between;align-items:flex-start}
+.pkg .when{text-align:right}
+.pkg .when b{display:block;font-size:30px;font-weight:500;letter-spacing:-.05em;line-height:1}
+.pkg .when span{font-size:13px;color:var(--faint)}
+.pkg h3{font-size:28px;font-weight:500;letter-spacing:-.045em;margin-top:36px}
+.pkg .cov{font-size:14px;color:var(--muted);margin-top:4px}
+.pkg .desc{color:var(--muted);font-size:15.5px;margin-top:16px;min-height:72px}
+.pkg ul{list-style:none;margin:22px 0 30px;display:flex;flex-wrap:wrap;gap:6px}
+.pkg li{font-size:13.5px;background:var(--paper);border-radius:999px;padding:6px 12px}
+.pkg .btn{margin-top:auto;justify-content:center}
+.pkg.pop{background:var(--ink);color:var(--paper)}
+.pkg.pop .desc,.pkg.pop .cov,.pkg.pop .when span{color:#A9A9A3}
+.pkg.pop li{background:#1C1C1C;color:#DADAD5}
+.pkg .flag{display:inline-block;font-size:12px;font-weight:500;background:var(--lime);color:var(--ink);border-radius:999px;padding:4px 10px;margin-top:14px}
+
+/* promises */
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.promise div{border-radius:28px;padding:28px;box-shadow:inset 0 0 0 1px var(--line)}
+.promise b{font-size:20px;font-weight:500;letter-spacing:-.03em;display:block}
+.promise span{font-size:15px;color:var(--muted)}
+
+/* close */
+.close{background:var(--ink);color:var(--paper);padding:150px 0 70px;position:relative;overflow:hidden;margin-top:60px}
+.glow{position:absolute;left:50%;top:6%;width:1600px;height:900px;transform:translateX(-50%);pointer-events:none}
+.close .in{position:relative;text-align:center}
+.close h2{font-size:clamp(40px,5.8vw,92px);max-width:1000px;margin:0 auto}
+.close h2 span{color:#6f6f6a}
+.close h2 em{font-style:normal;color:var(--lime)}
+.close .ctas{display:flex;justify-content:center;gap:12px;margin-top:44px;flex-wrap:wrap}
+.close .btn-soft{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1px #3a3a3a}
+.close .btn-soft:hover{box-shadow:inset 0 0 0 1px var(--paper)}
+.close .foot{margin-top:140px;padding-top:24px;border-top:1px solid #222;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:#8A8A8A;padding-bottom:40px}
+
+@media (max-width:980px){
+  .steps{grid-template-columns:1fr;gap:0}
+  .sticky{display:none}
+  .step{min-height:0;padding:36px 0}
+  .pkgs,.promise{grid-template-columns:1fr}
+  .branch{grid-template-columns:1fr}
+  .nav nav{display:none}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .hero{padding:40px 0 10px}
+  .sec{padding:90px 0}
+  .node text{font-size:24px}
+  .ring-wrap{width:74%}
+  .ring-center .num,.ring-center .one{display:none}
+  .pkg{padding:26px}
+  .close{padding:100px 0 50px}
+  .nav .btn.sm{display:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="markFill" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="#0A0A0A"/>
+      <path transform="translate(50 50) scale(1.1) translate(-50 -50)" d="M69.44 8.31C51.94 45.83 54.17 51.94 91.69 69.44 54.17 51.94 48.06 54.17 30.56 91.69 48.06 54.17 45.83 48.06 8.31 30.56 45.83 48.06 51.94 45.83 69.44 8.31Z" fill="#C1FF72" stroke="#C1FF72" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="markLine" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="6"/>
+      <path d="M69.44 8.31C51.94 45.83 54.17 51.94 91.69 69.44 54.17 51.94 48.06 54.17 30.56 91.69 48.06 54.17 45.83 48.06 8.31 30.56 45.83 48.06 51.94 45.83 69.44 8.31Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="Flowwork home"><svg><use href="#markFill"/></svg>flowwork</a>
+    <nav><a href="#loop">The loop</a><a href="#packages">Packages</a><a href="#book">Contact</a></nav>
+    <a href="#book" class="btn btn-ink sm">Book a 15-min audit</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><svg><use href="#markLine"/></svg>WhatsApp automation for Indian D2C brands</span>
+    <h1>From first message<br><span>to fifth order.</span></h1>
+    <p class="sub">Flowwork runs your whole customer loop on WhatsApp. Questions answered, carts recovered, COD orders confirmed, deliveries updated and customers brought back, on your own number and in your own voice.</p>
+    <div class="ctas"><a class="btn btn-ink" href="#book">Book a 15-min audit →</a><a class="btn btn-soft" href="#loop">Follow the loop</a></div>
+    <div class="ring-wrap" id="heroRing"></div>
+    <p class="ring-note">Tap a stage</p>
+  </div>
+</section>
+
+<section class="sec" id="loop">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The loop</span>
+      <h2>Five moments where brands lose customers. <span>We automate every one.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="sticky"><div class="ring-wrap" id="stickyRing"></div></div>
+      <div id="stepList">
+        <article class="step" data-i="0">
+          <span class="n">01 / 05</span><h3>They ask. You answer, even at 2 AM.</h3>
+          <p>Delivery times, COD limits, ingredients, "which one should I buy". Answered in seconds, with your catalogue right there in the chat.</p>
+          <span class="pk">Growth Engine</span>
+          <div class="chat"><span class="sysline">2:14 AM</span><div class="msg out">Are the masala cashews very spicy? Buying for my parents</div><div class="msg in">Mildly spiced, most people call it "chatpata, not hot". For a gentler option, the Himalayan Salt Cashews (₹449) are our parents' favourite.</div><div class="btns"><span>See both</span><span>Add to cart</span></div></div>
+        </article>
+        <article class="step" data-i="1">
+          <span class="n">02 / 05</span><h3>They leave. You bring them back.</h3>
+          <p>A friendly nudge on WhatsApp, where people actually read messages, with questions answered in the same chat.</p>
+          <span class="pk">Growth Engine</span>
+          <div class="chat"><div class="msg in">Hi Kavya, your Masala Cashews (500g) are still in your cart. Want me to hold them for you?</div><div class="btns"><span>Complete order</span><span>I have a question</span></div><div class="msg out">Complete order</div></div>
+        </article>
+        <article class="step" data-i="2">
+          <span class="n">03 / 05</span><h3>They order COD. You confirm before it ships.</h3>
+          <p>Every cash-on-delivery order is confirmed on WhatsApp. Fake and unreachable orders are flagged before dispatch, so you stop paying to ship parcels that come back.</p>
+          <span class="pk">COD Shield</span>
+          <div class="chat"><div class="msg in">Please confirm your cash-on-delivery order #NT-5520 for ₹1,149.</div><div class="btns"><span>Confirm</span><span>Change address</span></div><div class="msg out">Confirm</div><div class="msg in">Confirmed. Packing it today.</div></div>
+        </article>
+        <article class="step" data-i="3">
+          <span class="n">04 / 05</span><h3>It ships. They always know where it is.</h3>
+          <p>Order and shipping updates on WhatsApp, so your team stops answering "where is my order?" all day.</p>
+          <span class="pk">Growth Engine</span>
+          <div class="chat"><div class="msg in">Out for delivery today, between 2 and 6 PM. Please keep ₹1,149 ready.</div><div class="msg out">thank you!</div></div>
+        </article>
+        <article class="step" data-i="4">
+          <span class="n">05 / 05</span><h3>They run out. You're already there.</h3>
+          <p>A reminder right when they usually run low, with a one-tap reorder. That's where repeat revenue comes from.</p>
+          <span class="pk">Revenue OS</span>
+          <div class="chat"><span class="sysline">30 days later</span><div class="msg in">Hi Kavya! About a month since your cashews arrived. Running low?</div><div class="btns"><span>Reorder same · ₹1,149</span><span>Not yet</span></div><div class="msg out">Reorder same · ₹1,149</div></div>
+        </article>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="ic"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#0A0A0A" stroke-width="2"><rect x="4" y="11" width="22" height="15" rx="2"/><path d="M2 11h26M15 11v15M15 11c-3-6-9-6-9-2s6 2 9 2c3 0 9 2 9-2s-6-4-9 2"/></svg></div>
+      <div><h4>And when someone asks for 150 Diwali hampers?</h4><p>Corporate and bulk gifting enquiries step out of the loop: qualified on quantity, budget, date and city, then handed to your team ready to quote.</p></div>
+      <span class="pk" style="font-size:13.5px;display:inline-flex;gap:8px;align-items:center"><i style="width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 1px var(--ink)"></i>Growth Engine</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="packages" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Packages</span>
+      <h2>Choose how much of the loop <span>we run for you.</span></h2>
+    </div>
+    <div class="pkgs">
+      <article class="pkg">
+        <div class="top"><svg class="mini" data-cover="2" viewBox="0 0 100 100"></svg><div class="when"><b>7 days</b><span>to go live</span></div></div>
+        <h3>COD Shield</h3><p class="cov">Covers: confirm</p>
+        <p class="desc">Stops losses from fake and unreachable COD orders with instant WhatsApp confirmation and pre-dispatch flagging.</p>
+        <ul><li>COD confirmation</li><li>Pre-dispatch flagging</li><li>Your brand voice</li></ul>
+        <a class="btn btn-soft" href="#book">Start with COD Shield</a>
+      </article>
+      <article class="pkg pop">
+        <div class="top"><svg class="mini" data-cover="0,1,2,3" viewBox="0 0 100 100"></svg><div class="when"><b>2 weeks</b><span>to go live</span></div></div>
+        <h3>Growth Engine</h3><p class="cov">Covers: ask, cart, confirm, deliver</p>
+        <span class="flag" style="align-self:flex-start">Most popular</span>
+        <p class="desc">A complete WhatsApp assistant that answers, sells and follows up.</p>
+        <ul><li>24x7 answers</li><li>Catalogue in chat</li><li>Order updates</li><li>Cart recovery</li><li>Gifting enquiries</li><li>Diwali campaign</li></ul>
+        <a class="btn btn-lime" href="#book">Start with Growth Engine →</a>
+      </article>
+      <article class="pkg">
+        <div class="top"><svg class="mini" data-cover="0,1,2,3,4" viewBox="0 0 100 100"></svg><div class="when"><b>3–4 wks</b><span>to go live</span></div></div>
+        <h3>Revenue OS</h3><p class="cov">Covers: the whole loop</p>
+        <p class="desc">A full WhatsApp sales channel with in-chat ordering, automatic reorders and a monthly revenue dashboard.</p>
+        <ul><li>In-chat ordering</li><li>Automatic reorders</li><li>Distributor leads</li><li>Year-round festival campaigns</li><li>Revenue dashboard</li></ul>
+        <a class="btn btn-soft" href="#book">Start with Revenue OS</a>
+      </article>
+    </div>
+    <div class="promise">
+      <div><b>Your number</b><span>Runs on your own WhatsApp Business number.</span></div>
+      <div><b>Your voice</b><span>Every message written the way your brand talks.</span></div>
+      <div><b>Your approval</b><span>Nothing goes live until you say yes.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="book">
+  <svg class="glow" viewBox="0 0 1600 900" aria-hidden="true">
+    <defs>
+      <radialGradient id="g1" cx="50%" cy="100%" r="60%"><stop offset="0" stop-color="#C1FF72" stop-opacity=".35"/><stop offset="1" stop-color="#C1FF72" stop-opacity="0"/></radialGradient>
+      <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+    </defs>
+    <ellipse cx="800" cy="900" rx="760" ry="420" fill="url(#g1)"/>
+    <path d="M40 900 C 400 420, 1200 420, 1560 900" fill="none" stroke="#C1FF72" stroke-width="10" filter="url(#blur)" opacity=".8"/>
+    <path d="M40 900 C 400 420, 1200 420, 1560 900" fill="none" stroke="#E4FFC4" stroke-width="1.5" opacity=".9"/>
+  </svg>
+  <div class="wrap in">
+    <span class="eyebrow" style="color:#8A8A8A">Start with 15 minutes</span>
+    <h2 style="margin-top:22px">Less time on chats. <span>Fewer returned parcels.</span> <em>More repeat orders.</em></h2>
+    <div class="ctas"><a class="btn btn-lime" href="https://cal.com/lavparab/ai-automation-audit-with-lavparab">Book a 15-min audit →</a><a class="btn btn-soft" href="https://wa.me/917507830937">WhatsApp +91 75078 30937</a></div>
+    <div class="foot"><a href="#" class="logo" style="color:var(--paper);font-size:19px"><svg style="width:22px;height:22px;color:var(--lime)"><use href="#markLine"/></svg>flowwork</a><span>AI systems for D2C operations · Pune, India</span></div>
+  </div>
+</section>
+</main>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NS='http://www.w3.org/2000/svg';
+const STAGES=[
+  {name:'Ask', title:'Questions answered', one:'24x7, in your brand voice'},
+  {name:'Cart', title:'Carts recovered', one:'A nudge where people actually read'},
+  {name:'Confirm', title:'COD confirmed', one:'Before a single parcel ships'},
+  {name:'Deliver', title:'Deliveries updated', one:'No more "where is my order?"'},
+  {name:'Reorder', title:'Customers back', one:'Right when they run out'},
+];
+const ANG = i => -90 + i*72;
+const rad = d => d*Math.PI/180;
+const el = (n,a={}) => { const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); return e; };
+
+function makeRing(host, {onPick}={}){
+  const S=640, C=320, R=236;
+  const svg=el('svg',{viewBox:`0 0 ${S} ${S}`,role:'img','aria-label':'The Flowwork customer loop'});
+  svg.append(el('circle',{cx:C,cy:C,r:R,fill:'none',stroke:'#E1E1DA','stroke-width':2}));
+  svg.append(el('circle',{cx:C,cy:C,r:R-58,fill:'none',stroke:'#ECECE6','stroke-width':1,'stroke-dasharray':'2 6'}));
+  const circ=2*Math.PI*R, arcLen=circ*0.16;
+  const arc=el('circle',{cx:C,cy:C,r:R,fill:'none',stroke:'#C1FF72','stroke-width':6,'stroke-linecap':'round','stroke-dasharray':`${arcLen} ${circ}`});
+  svg.append(arc);
+  const nodes = STAGES.map((s,i)=>{
+    const a=rad(ANG(i)), x=C+R*Math.cos(a), y=C+R*Math.sin(a);
+    const g=el('g',{class:'node',tabindex:0,role:'button','aria-label':s.name});
+    g.append(el('circle',{cx:x,cy:y,r:22,fill:'transparent'}));
+    g.append(el('circle',{class:'dotc',cx:x,cy:y,r:8,fill:'#FFFFFF',stroke:'#BDBDB5','stroke-width':2}));
+    const lx=C+(R+40)*Math.cos(a), ly=C+(R+40)*Math.sin(a);
+    const anchor = Math.abs(Math.cos(a))<.3 ? 'middle' : (Math.cos(a)>0?'start':'end');
+    const t=el('text',{x:lx,y:ly+5,'text-anchor':anchor}); t.textContent=`0${i+1}  ${s.name}`;
+    g.append(t);
+    g.addEventListener('click',()=>onPick&&onPick(i));
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); onPick&&onPick(i);} });
+    svg.append(g); return g;
+  });
+  // spark in the middle
+  const spark=el('g',{transform:`translate(${C-34} ${C-150}) scale(.68)`});
+  const use=el('use',{href:'#markFill'}); use.setAttribute('width',100); use.setAttribute('height',100);
+  spark.append(use); svg.append(spark);
+  const dot=el('circle',{r:9,fill:'#0A0A0A',stroke:'#C1FF72','stroke-width':3});
+  svg.append(dot);
+  host.append(svg);
+  const center=document.createElement('div'); center.className='ring-center';
+  center.innerHTML='<div class="swap"><div class="num"></div><div class="ttl"></div><div class="one"></div></div>';
+  host.append(center);
+  const sw=center.querySelector('.swap');
+  let active=-1;
+  function setAngle(deg){
+    const a=rad(deg);
+    dot.setAttribute('cx',C+R*Math.cos(a)); dot.setAttribute('cy',C+R*Math.sin(a));
+    arc.setAttribute('transform',`rotate(${deg - arcLen/circ*360} ${C} ${C})`);
+    const rel=((deg+90)%360+360)%360;
+    const idx=Math.min(4,Math.floor((rel+6)/72)%5);
+    if(idx!==active){
+      active=idx; nodes.forEach((n,j)=>n.classList.toggle('on',j===idx));
+      sw.classList.add('out');
+      setTimeout(()=>{ const s=STAGES[idx]; sw.querySelector('.num').textContent=`0${idx+1} / 05 · ${s.name}`; sw.querySelector('.ttl').textContent=s.title; sw.querySelector('.one').textContent=s.one; sw.classList.remove('out'); }, reduce?0:180);
+    }
+  }
+  return {setAngle};
+}
+
+/* hero ring: drifts around the loop, pausing at each stage */
+let heroAng=-90, heroTarget=-90, heroHold=0, lastT=0;
+const hero=makeRing(document.getElementById('heroRing'),{onPick:i=>{ heroTarget = heroAng + (((ANG(i)-heroAng)%360)+360)%360; heroHold=performance.now()+5000; }});
+hero.setAngle(heroAng);
+
+/* sticky ring: follows the step in view */
+let stAng=-90, stTarget=-90;
+const sticky=makeRing(document.getElementById('stickyRing'),{onPick:i=>document.querySelector(`.step[data-i="${i}"]`).scrollIntoView({behavior:'smooth',block:'center'})});
+sticky.setAngle(stAng);
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const i=+e.target.dataset.i; stTarget = stAng + ((((ANG(i)-stAng)%360)+540)%360-180); } }),{rootMargin:'-45% 0px -45% 0px'});
+document.querySelectorAll('.step').forEach(s=>io.observe(s));
+
+function frame(t){
+  const dt=Math.min(50,t-(lastT||t)); lastT=t;
+  if(!reduce){
+    if(t>heroHold && Math.abs(heroTarget-heroAng)<.5){ heroHold=t+2200; heroTarget+=72; }
+    heroAng += (heroTarget-heroAng)*Math.min(1,dt*0.0045);
+    hero.setAngle(heroAng);
+    stAng += (stTarget-stAng)*Math.min(1,dt*0.006);
+    sticky.setAngle(stAng);
+  } else { hero.setAngle(heroTarget); sticky.setAngle(stTarget); }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* package mini rings: coverage arcs */
+document.querySelectorAll('svg.mini').forEach(svg=>{
+  const cover=svg.dataset.cover.split(',').map(Number);
+  const dark=svg.closest('.pkg').classList.contains('pop');
+  const C=50,R=38;
+  svg.append(el('circle',{cx:C,cy:C,r:R,fill:'none',stroke:dark?'#2A2A2A':'#E6E6E0','stroke-width':6}));
+  STAGES.forEach((s,i)=>{
+    if(!cover.includes(i)) return;
+    const a0=rad(ANG(i)-30), a1=rad(ANG(i)+30);
+    svg.append(el('path',{d:`M${C+R*Math.cos(a0)} ${C+R*Math.sin(a0)} A${R} ${R} 0 0 1 ${C+R*Math.cos(a1)} ${C+R*Math.sin(a1)}`,fill:'none',stroke:'#C1FF72','stroke-width':6,'stroke-linecap':'round'}));
+  });
+  STAGES.forEach((s,i)=>{
+    const a=rad(ANG(i));
+    svg.append(el('circle',{cx:C+R*Math.cos(a),cy:C+R*Math.sin(a),r:3.2,fill:cover.includes(i)?(dark?'#C1FF72':'#0A0A0A'):(dark?'#444':'#C9C9C2')}));
+  });
+  const t=el('text',{x:C,y:C+6,'text-anchor':'middle','font-family':'Inter','font-size':17,'font-weight':600,fill:dark?'#F7F7F5':'#0A0A0A'});
+  t.textContent=`${cover.length}/5`; svg.append(t);
+});
+</script>
+<script src="switcher.js" defer></script>
+</body>
+</html>

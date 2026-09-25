@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowwork · 03 Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#C1FF72;--ink:#0A0A0A;--paper:#F7F7F5;--gray:#8A8A8A;--muted:#5F5F5A;--rule:#0A0A0A;--soft:#D8D8D2}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.g{max-width:1440px;margin:0 auto;padding:0 40px}
+main{overflow-x:clip}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px}
+.cap{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.cap.dim{color:var(--muted);font-weight:500}
+
+/* masthead */
+.mast{border-bottom:1px solid var(--rule)}
+.mast .grid{align-items:center;height:64px}
+.logo{grid-column:1 / 4;display:flex;align-items:center;gap:9px;font-weight:700;font-size:22px;letter-spacing:-.055em}
+.logo svg{flex:none;width:26px;height:26px}
+.mast .tag{grid-column:4 / 9}
+.mast nav{grid-column:9 / 13;display:flex;justify-content:flex-end;gap:26px;align-items:center}
+.mast nav a{font-size:14.5px;font-weight:500}
+.mast nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.mast nav .cta{background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:999px}
+.mast nav .cta:hover{text-decoration:none;background:#2a2a2a}
+
+/* hero */
+.hero{padding-top:28px}
+.hero-meta{padding:14px 0;border-bottom:1px solid var(--rule)}
+.hero-meta .grid > *:nth-child(1){grid-column:1 / 4}
+.hero-meta .grid > *:nth-child(2){grid-column:4 / 9}
+.hero-meta .grid > *:nth-child(3){grid-column:9 / 13;text-align:right}
+.statement .row{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;border-bottom:1px solid var(--rule);align-items:end;position:relative}
+.statement .n{grid-column:1 / 2;font-size:13px;font-weight:600;padding-bottom:2.2vw}
+.statement h1,.statement .h1{grid-column:2 / 11;font-size:clamp(44px,7.2vw,104px);line-height:.9;letter-spacing:-.062em;font-weight:700;padding:1.6vw 0 1.3vw;white-space:nowrap}
+.statement .side{grid-column:11 / 13;font-size:14px;line-height:1.4;padding-bottom:2.2vw;color:var(--muted)}
+.statement .side b{display:block;color:var(--ink);font-weight:600}
+.statement .row.lime{background:var(--lime)}
+.statement .row.lime::before{content:"";position:absolute;inset:0 -100vw;background:var(--lime);z-index:-1}
+.hero-foot{padding-top:48px;padding-bottom:120px}
+.hero-foot .intro{grid-column:2 / 8;font-size:clamp(22px,2vw,30px);line-height:1.25;letter-spacing:-.025em;font-weight:500}
+.hero-foot .intro span{color:var(--muted)}
+.hero-foot .act{grid-column:9 / 13;align-self:end;display:flex;flex-direction:column;gap:12px}
+.btn{display:flex;justify-content:space-between;align-items:center;height:58px;padding:0 22px;font-weight:600;font-size:16px;border:1px solid var(--ink);transition:background .2s,color .2s}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:var(--lime);color:var(--ink);border-color:var(--ink)}
+.btn.line:hover{background:var(--ink);color:var(--paper)}
+
+/* section frame */
+.sec{border-top:1px solid var(--rule);padding:22px 0 130px}
+.sec-top{margin-bottom:80px}
+.sec-top .cap:first-child{grid-column:1 / 4}
+.sec-top h2{grid-column:4 / 12;font-size:clamp(38px,4.6vw,72px);line-height:.98;letter-spacing:-.05em;font-weight:700;margin-top:56px}
+.sec-top h2 span{color:var(--gray)}
+
+/* automations list */
+.auto{border-top:1px solid var(--rule)}
+.auto .item{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:baseline;border-bottom:1px solid var(--rule);padding:30px 0 28px;position:relative;transition:background .25s}
+.auto .item::before{content:"";position:absolute;inset:0 -40px;background:var(--lime);opacity:0;transition:opacity .25s;z-index:-1}
+.auto .item:hover::before{opacity:1}
+.auto .num{grid-column:1 / 2;font-size:13px;font-weight:600}
+.auto h3{grid-column:2 / 7;font-size:clamp(28px,3.1vw,48px);letter-spacing:-.045em;line-height:1;font-weight:700}
+.auto p{grid-column:7 / 11;font-size:16px;color:var(--muted)}
+.auto .item:hover p{color:var(--ink)}
+.auto .in{grid-column:11 / 13;text-align:right;font-size:13px;font-weight:600}
+
+/* packages spec */
+.specs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule)}
+.spec{padding:22px 24px 34px 0;display:flex;flex-direction:column}
+.spec + .spec{border-left:1px solid var(--rule);padding-left:24px}
+.spec .head{display:flex;justify-content:space-between;align-items:center}
+.spec .head .flag{background:var(--ink);color:var(--lime);font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px}
+.spec .time{font-size:clamp(64px,7.6vw,124px);letter-spacing:-.07em;font-weight:700;line-height:.85;margin:54px 0 10px}
+.spec .time small{font-size:.36em;letter-spacing:-.04em;margin-left:.08em}
+.spec .name{font-size:28px;font-weight:700;letter-spacing:-.04em;padding-bottom:20px;border-bottom:1px solid var(--rule)}
+.spec .what{font-size:16px;color:var(--muted);padding:18px 0 22px;min-height:104px}
+.spec ul{list-style:none;border-top:1px solid var(--soft);margin-bottom:34px}
+.spec li{padding:10px 0;border-bottom:1px solid var(--soft);font-size:15.5px;display:grid;grid-template-columns:30px 1fr}
+.spec li span{font-size:12px;color:var(--gray);padding-top:3px;font-variant-numeric:tabular-nums}
+.spec .btn{margin-top:auto}
+.spec.pop .time{background:var(--lime);margin-left:-8px;padding:8px 8px 4px;align-self:flex-start}
+
+/* principles */
+.princ .grid > div{grid-column:span 4;border-top:1px solid var(--rule);padding-top:20px}
+.princ h3{font-size:clamp(40px,5vw,84px);letter-spacing:-.06em;line-height:.9;font-weight:700;margin:40px 0 26px}
+.princ p{font-size:17px;color:var(--muted);max-width:360px}
+
+/* fit */
+.fit .grid > div{grid-column:span 6}
+.fit .box{border-top:6px solid var(--ink);padding-top:22px}
+.fit .box.no{border-color:var(--soft)}
+.fit h4{font-size:26px;letter-spacing:-.035em;font-weight:700;margin-bottom:22px}
+.fit ul{list-style:none}
+.fit li{font-size:19px;letter-spacing:-.015em;padding:14px 0;border-bottom:1px solid var(--soft);display:flex;gap:14px}
+.fit li::before{content:"+";font-weight:700;width:14px}
+.fit .no li{color:var(--muted)}
+.fit .no li::before{content:"–"}
+
+/* colophon */
+.colophon{background:var(--ink);color:var(--paper);padding:26px 0 0;overflow:hidden}
+.colophon .top{align-items:start}
+.colophon .top > *:nth-child(1){grid-column:1 / 5}
+.colophon .top > *:nth-child(2){grid-column:5 / 9}
+.colophon .top > *:nth-child(3){grid-column:9 / 13;text-align:right}
+.colophon .cap.dim{color:#8A8A8A}
+.colophon .big-cta{display:block;font-size:clamp(40px,5.4vw,88px);letter-spacing:-.055em;line-height:.95;font-weight:700;margin:110px 0 40px;max-width:1100px}
+.colophon .big-cta span{color:var(--lime);display:inline-block;transition:transform .3s}
+.colophon .big-cta:hover span{transform:translateX(14px)}
+.colophon .links{display:flex;gap:30px;flex-wrap:wrap;font-size:15px;color:#bdbdb7;padding-bottom:40px;border-bottom:1px solid #2a2a2a}
+.colophon .links a:hover{color:var(--lime)}
+.wordmark{display:flex;align-items:center;gap:min(1.8vw,26px);font-weight:700;font-size:min(20vw,288px);letter-spacing:-.07em;line-height:.74;margin:min(5vw,72px) 0 calc(min(20vw,288px) * -.16);color:var(--paper)}
+.wordmark svg{width:min(13.5vw,194px);height:min(13.5vw,194px);flex:none;color:var(--lime);transform:translateY(-.02em)}
+
+@media (max-width:1000px){
+  .mast .tag{display:none}
+  .mast nav{grid-column:4 / 13}
+  .mast nav a:not(.cta){display:none}
+  .statement h1,.statement .h1{grid-column:2 / 13;white-space:normal}
+  .statement .side{display:none}
+  .hero-foot .intro,.hero-foot .act{grid-column:1 / 13}
+  .hero-foot .act{margin-top:28px}
+  .sec-top h2{grid-column:1 / 13}
+  .auto h3{grid-column:2 / 13}
+  .auto p{grid-column:2 / 13;margin-top:8px}
+  .auto .in{grid-column:2 / 13;text-align:left;margin-top:8px}
+  .specs{grid-template-columns:1fr}
+  .spec,.spec+.spec{border-left:0;padding-left:0;border-bottom:1px solid var(--rule)}
+  .princ .grid > div,.fit .grid > div{grid-column:1 / 13;margin-bottom:40px}
+  .colophon .top > *{grid-column:1 / 13!important;text-align:left!important;margin-bottom:8px}
+}
+@media (max-width:560px){
+  .g{padding-left:16px;padding-right:16px}
+  .hero-meta .grid > *:nth-child(2){display:none}
+  .hero-meta .grid > *:nth-child(1){grid-column:1 / 7}
+  .hero-meta .grid > *:nth-child(3){grid-column:7 / 13}
+  .statement h1,.statement .h1{font-size:44px;padding:14px 0 10px}
+  .statement .n{display:none}
+  .statement h1,.statement .h1{grid-column:1 / 13}
+  .sec{padding-bottom:90px}
+  .auto .item::before{inset:0 -16px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="markFill" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="#0A0A0A"/>
+      <path transform="translate(50 50) scale(1.1) translate(-50 -50)" d="M69.44 8.31C51.94 45.83 54.17 51.94 91.69 69.44 54.17 51.94 48.06 54.17 30.56 91.69 48.06 54.17 45.83 48.06 8.31 30.56 45.83 48.06 51.94 45.83 69.44 8.31Z" fill="#C1FF72" stroke="#C1FF72" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="markLine" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="6"/>
+      <path d="M69.44 8.31C51.94 45.83 54.17 51.94 91.69 69.44 54.17 51.94 48.06 54.17 30.56 91.69 48.06 54.17 45.83 48.06 8.31 30.56 45.83 48.06 51.94 45.83 69.44 8.31Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="mast">
+  <div class="g grid">
+    <a href="#" class="logo" aria-label="Flowwork home"><svg><use href="#markFill"/></svg>flowwork</a>
+    <span class="tag cap dim">AI automation for Indian D2C brands</span>
+    <nav><a href="#automations">What we automate</a><a href="#packages">Packages</a><a href="#book" class="cta">Book a 15-min audit</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="g">
+    <div class="hero-meta"><div class="grid"><span class="cap">(01) Flowwork</span><span class="cap dim">WhatsApp as a sales and support channel</span><span class="cap dim">Pune, India — 2026</span></div></div>
+    <div class="statement">
+      <div class="row"><span class="n">A.</span><h1 class="h1">Less time on chats.</h1><p class="side"><b>24x7 replies</b>In your brand voice, on your number.</p></div>
+      <div class="row"><span class="n">B.</span><p class="h1">Fewer returned parcels.</p><p class="side"><b>COD confirmed</b>Before a single box is packed.</p></div>
+      <div class="row lime"><span class="n">C.</span><p class="h1">More repeat orders.</p><p class="side" style="color:var(--ink)"><b>Reorder reminders</b>Timed to when they run out.</p></div>
+    </div>
+  </div>
+  <div class="g hero-foot">
+    <div class="grid">
+      <p class="intro">Flowwork is an AI automation agency that turns WhatsApp into a sales and support channel for Indian D2C brands. <span>All without your team replying manually.</span></p>
+      <div class="act">
+        <a class="btn solid" href="#book">Book a 15-min audit <span>→</span></a>
+        <a class="btn line" href="#packages">See the three packages <span>↓</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="automations">
+  <div class="g">
+    <div class="grid sec-top"><span class="cap">(02) What we automate</span><h2>Five jobs your team does by hand today. <span>None of them need a human.</span></h2></div>
+    <div class="auto">
+      <div class="item"><span class="num">01</span><h3>COD confirmation</h3><p>Every cash-on-delivery order is confirmed on WhatsApp before it ships. Fake and unreachable orders are flagged before dispatch.</p><span class="in">COD Shield</span></div>
+      <div class="item"><span class="num">02</span><h3>Customer questions</h3><p>Delivery times, COD limits, sizing, ingredients. Answered 24x7, with your catalogue a tap away.</p><span class="in">Growth Engine</span></div>
+      <div class="item"><span class="num">03</span><h3>Abandoned carts</h3><p>Recovered on the app your customers actually open, not an inbox they ignore.</p><span class="in">Growth Engine</span></div>
+      <div class="item"><span class="num">04</span><h3>Gifting enquiries</h3><p>Corporate and bulk orders qualified on quantity, budget and date, then handed to your team ready to quote.</p><span class="in">Growth Engine</span></div>
+      <div class="item"><span class="num">05</span><h3>Reorder reminders</h3><p>Customers brought back at the right moment, with a one-tap reorder.</p><span class="in">Revenue OS</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="packages">
+  <div class="g">
+    <div class="grid sec-top"><span class="cap">(03) Packages</span><h2>Three packages, measured in how soon they're live.</h2></div>
+    <div class="specs">
+      <article class="spec">
+        <div class="head"><span class="cap">P—01</span></div>
+        <p class="time">7<small>days</small></p>
+        <h3 class="name">COD Shield</h3>
+        <p class="what">Stops losses from fake and unreachable COD orders with instant WhatsApp confirmation and pre-dispatch flagging.</p>
+        <ul><li><span>01</span>Instant COD confirmation</li><li><span>02</span>Pre-dispatch flagging</li><li><span>03</span>Written in your brand voice</li></ul>
+        <a class="btn line" href="#book">Start with COD Shield <span>→</span></a>
+      </article>
+      <article class="spec pop">
+        <div class="head"><span class="cap">P—02</span><span class="flag">Most popular</span></div>
+        <p class="time">2<small>weeks</small></p>
+        <h3 class="name">Growth Engine</h3>
+        <p class="what">A complete WhatsApp assistant: answers, catalogue, order updates, cart recovery, gifting enquiries and your Diwali campaign.</p>
+        <ul><li><span>01</span>24x7 customer answers</li><li><span>02</span>Catalogue sharing</li><li><span>03</span>Order updates</li><li><span>04</span>Abandoned cart recovery</li><li><span>05</span>Gifting enquiry capture</li><li><span>06</span>Diwali campaign</li></ul>
+        <a class="btn solid" href="#book">Start with Growth Engine <span>→</span></a>
+      </article>
+      <article class="spec">
+        <div class="head"><span class="cap">P—03</span></div>
+        <p class="time">3–4<small>weeks</small></p>
+        <h3 class="name">Revenue OS</h3>
+        <p class="what">A full WhatsApp sales channel with in-chat ordering, automatic reorders, distributor leads and a monthly revenue dashboard.</p>
+        <ul><li><span>01</span>In-chat ordering</li><li><span>02</span>Automatic reorders</li><li><span>03</span>Distributor lead capture</li><li><span>04</span>Year-round festival campaigns</li><li><span>05</span>Monthly revenue dashboard</li></ul>
+        <a class="btn line" href="#book">Start with Revenue OS <span>→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec princ">
+  <div class="g">
+    <div class="grid sec-top"><span class="cap">(04) How we work</span><h2>Three rules we don't bend.</h2></div>
+    <div class="grid">
+      <div><span class="cap dim">Rule 1</span><h3>Your number.</h3><p>Everything runs on your own WhatsApp Business number. Your customers never talk to "some agency".</p></div>
+      <div><span class="cap dim">Rule 2</span><h3>Your voice.</h3><p>Every message is written the way your brand already speaks, whether that's formal, warm or Hinglish.</p></div>
+      <div><span class="cap dim">Rule 3</span><h3>Your call.</h3><p>Nothing goes live until you've approved it. You see every flow before your customers do.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec fit">
+  <div class="g">
+    <div class="grid sec-top"><span class="cap">(05) Fit</span><h2>Built for a specific kind of brand. <span>Honestly.</span></h2></div>
+    <div class="grid">
+      <div class="box"><h4>A good fit</h4><ul><li>Indian D2C brand on Shopify or WooCommerce</li><li>A real share of orders on cash-on-delivery</li><li>Customers already messaging you on WhatsApp</li><li>A team that's tired of replying by hand</li></ul></div>
+      <div class="box no"><h4>Probably not for you</h4><ul><li>Prepaid-only stores</li><li>Marketplace-only sellers on Amazon or Flipkart</li><li>Brands just starting out, with a handful of orders a month</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="colophon" id="book">
+  <div class="g">
+    <div class="grid top"><span class="cap">(06) Start</span><span class="cap dim">15 minutes · Free · On video or WhatsApp</span><span class="cap dim">+91 75078 30937</span></div>
+    <a class="big-cta" href="https://cal.com/lavparab/ai-automation-audit-with-lavparab">Book a 15-min audit and see where your WhatsApp is leaking money <span>→</span></a>
+    <div class="links"><a href="https://wa.me/917507830937">WhatsApp us</a><a href="#automations">What we automate</a><a href="#packages">Packages</a><span>Flowwork · Pune, India</span></div>
+    <div class="wordmark" aria-hidden="true"><svg><use href="#markLine"/></svg>flowwork</div>
+  </div>
+</section>
+</main>
+<script src="switcher.js" defer></script>
+</body>
+</html>

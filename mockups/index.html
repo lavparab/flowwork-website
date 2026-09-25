@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowwork website directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#C1FF72;--ink:#0A0A0A;--paper:#F7F7F5;--muted:#66665F;--line:#E2E2DC}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1360px;margin:0 auto;padding:0 32px}
+header{padding:40px 0 48px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:40px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:22px;letter-spacing:-.055em}
+.logo svg{flex:none;width:26px;height:26px}
+h1{font-size:clamp(34px,4vw,56px);letter-spacing:-.05em;line-height:1;font-weight:700;margin-top:28px}
+header p{max-width:460px;color:var(--muted);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 22px;padding-bottom:80px}
+.card{display:flex;flex-direction:column}
+.thumb{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#ddd;box-shadow:0 0 0 1px var(--line);transition:transform .3s,box-shadow .3s}
+.thumb iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;pointer-events:none}
+.card:hover .thumb{transform:translateY(-4px);box-shadow:0 0 0 2px var(--ink),0 20px 40px rgba(0,0,0,.08)}
+.meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px}
+.meta h2{font-size:24px;letter-spacing:-.04em;font-weight:700}
+.meta h2 span{color:#A5A59E;font-weight:500;margin-right:8px;font-variant-numeric:tabular-nums}
+.meta em{font-style:normal;font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted);white-space:nowrap}
+.card .line{font-size:16px;font-weight:600;letter-spacing:-.015em;margin-top:6px}
+.card .desc{font-size:14.5px;color:var(--muted);margin-top:6px}
+.card .best{font-size:14px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.card .best b{background:var(--lime);padding:0 4px;font-weight:600}
+@media (max-width:1100px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.wrap{padding:0 16px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><symbol id="markFill" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#0A0A0A"/><path transform="translate(50 50) scale(1.1) translate(-50 -50)" d="M69.44 8.31C51.94 45.83 54.17 51.94 91.69 69.44 54.17 51.94 48.06 54.17 30.56 91.69 48.06 54.17 45.83 48.06 8.31 30.56 45.83 48.06 51.94 45.83 69.44 8.31Z" fill="#C1FF72" stroke="#C1FF72" stroke-width="3" stroke-linejoin="round"/></symbol></defs></svg>
+<div class="wrap">
+  <header>
+    <div>
+      <span class="logo"><svg><use href="#markFill"/></svg>flowwork</span>
+      <h1>Six website directions</h1>
+    </div>
+    <p>Same brand, same copy, six different ideas. Open any one, then use ← → (or the bar at the bottom) to flip between them. Every page works on mobile too.</p>
+  </header>
+
+  <div class="grid">
+    <a class="card" href="01-thread.html">
+      <div class="thumb"><iframe src="01-thread.html" loading="lazy" tabindex="-1" title="Thread preview"></iframe></div>
+      <div class="meta"><h2><span>01</span>Thread</h2><em>Dark · conversational</em></div>
+      <p class="line">The site is a WhatsApp conversation.</p>
+      <p class="desc">The hero plays a real COD confirmation on a phone. You can click through five example chats, and the FAQ is written as a chat too.</p>
+      <p class="best">Pick this if visitors should <b>see it working</b> within 5 seconds.</p>
+    </a>
+    <a class="card" href="02-ledger.html">
+      <div class="thumb"><iframe src="02-ledger.html" loading="lazy" tabindex="-1" title="Ledger preview"></iframe></div>
+      <div class="meta"><h2><span>02</span>Ledger</h2><em>Light · numbers-first</em></div>
+      <p class="line">"Automation that pays for itself", shown in rupees.</p>
+      <p class="desc">A finance-document look with a live RTO calculator in the hero, a table of where the money leaks, and packages set out like a price list.</p>
+      <p class="best">Pick this if you sell to founders who <b>decide on ROI</b>.</p>
+    </a>
+    <a class="card" href="03-editorial.html">
+      <div class="thumb"><iframe src="03-editorial.html" loading="lazy" tabindex="-1" title="Editorial preview"></iframe></div>
+      <div class="meta"><h2><span>03</span>Editorial</h2><em>Light · Swiss grid</em></div>
+      <p class="line">Huge type, a strict grid, no decoration.</p>
+      <p class="desc">Built like the numbered sections of your brand sheet. Your tagline is the headline, and the big wordmark closes the page.</p>
+      <p class="best">Pick this if you want to look like a <b>premium studio</b>, not a tool.</p>
+    </a>
+    <a class="card" href="04-control-room.html">
+      <div class="thumb"><iframe src="04-control-room.html" loading="lazy" tabindex="-1" title="Control Room preview"></iframe></div>
+      <div class="meta"><h2><span>04</span>Control Room</h2><em>Dark · data</em></div>
+      <p class="line">Your WhatsApp as a live operations dashboard.</p>
+      <p class="desc">A live event feed, KPIs, flows drawn as systems, and a deployment timeline that shows the three packages side by side.</p>
+      <p class="best">Pick this if you want to feel like <b>serious infrastructure</b>.</p>
+    </a>
+    <a class="card" href="05-parcel.html">
+      <div class="thumb"><iframe src="05-parcel.html" loading="lazy" tabindex="-1" title="Parcel preview"></iframe></div>
+      <div class="meta"><h2><span>05</span>Parcel</h2><em>Light · tactile · India</em></div>
+      <p class="line">Shipping labels, stamps and the festival calendar.</p>
+      <p class="desc">An RTO label next to a confirmed one, a packing slip, a live Diwali countdown and packages shown as luggage tags.</p>
+      <p class="best">Pick this for the <b>most memorable</b>, least "agency" look.</p>
+    </a>
+    <a class="card" href="06-loop.html">
+      <div class="thumb"><iframe src="06-loop.html" loading="lazy" tabindex="-1" title="Loop preview"></iframe></div>
+      <div class="meta"><h2><span>06</span>Loop</h2><em>Light · calm · premium</em></div>
+      <p class="line">The customer lifecycle drawn as one ring.</p>
+      <p class="desc">Your logo's ring becomes the diagram. Scroll through five stages with example chats, and each package shows how much of the loop it covers.</p>
+      <p class="best">Pick this if you want to sell the <b>full system</b>, not only COD.</p>
+    </a>
+  </div>
+</div>
+<script>
+function fit(){ document.querySelectorAll('.thumb').forEach(t=>{ t.querySelector('iframe').style.transform=`scale(${t.clientWidth/1440})`; }); }
+addEventListener('resize',fit); fit();
+</script>
+</body>
+</html>

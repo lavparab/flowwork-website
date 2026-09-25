@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowwork · 04 Control Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lime:#C1FF72;--bg:#0A0A0A;--p1:#101010;--p2:#151515;--p3:#1B1B1B;--line:#222;--grid:#131313;
+  --text:#EDEDEA;--muted:#9A9A95;--dim:#61615D;--mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;background-position:-1px -1px}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono)}
+.k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 3px rgba(193,255,114,.15);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(193,255,114,0)}}
+
+/* status + nav */
+.status{border-bottom:1px solid var(--line);background:#070707}
+.status .wrap{display:flex;justify-content:space-between;gap:16px;height:34px;align-items:center}
+.status span{display:flex;align-items:center;gap:8px}
+.nav{border-bottom:1px solid var(--line);background:rgba(10,10,10,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:40}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:22px;letter-spacing:-.055em}
+.logo svg{flex:none;width:26px;height:26px;color:var(--lime)}
+.nav nav{display:flex;gap:6px}
+.nav nav a{font-family:var(--mono);font-size:12px;color:var(--muted);padding:8px 12px;border-radius:6px}
+.nav nav a:hover{background:var(--p2);color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:8px;font-weight:600;font-size:15px;transition:background .2s,border-color .2s}
+.btn-lime{background:var(--lime);color:#0A0A0A}
+.btn-lime:hover{background:#d4ff9b}
+.btn-dark{border:1px solid #333;background:var(--p1)}
+.btn-dark:hover{border-color:#555}
+.btn.sm{height:38px;font-size:14px;padding:0 16px}
+
+/* hero */
+.hero{padding:80px 0 40px}
+.hero-top{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:end}
+h1{font-size:clamp(48px,6.4vw,96px);line-height:.94;letter-spacing:-.055em;font-weight:700}
+h1 .l{color:var(--lime)}
+.hero-top p{color:var(--muted);font-size:18px;max-width:480px}
+.hero-top .ctas{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+
+/* dashboard */
+.dash{margin-top:64px;border:1px solid var(--line);border-radius:14px;background:var(--p1);overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+.d-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;border-bottom:1px solid var(--line);background:#0D0D0D}
+.crumb{font-family:var(--mono);font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.crumb b{color:var(--text);font-weight:500}
+.crumb svg{width:16px;height:16px;color:var(--lime)}
+.segs{display:flex;background:var(--p2);border:1px solid var(--line);border-radius:7px;padding:2px}
+.segs span{font-family:var(--mono);font-size:11.5px;padding:5px 11px;border-radius:5px;color:var(--muted)}
+.segs span.on{background:var(--p3);color:var(--text)}
+.live{font-family:var(--mono);font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.live em{font-style:normal;border:1px dashed #3a3a3a;border-radius:4px;padding:2px 6px;color:var(--dim)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
+.kpi{padding:18px 18px 16px;position:relative}
+.kpi+.kpi{border-left:1px solid var(--line)}
+.kpi .v{font-size:34px;font-weight:600;letter-spacing:-.04em;margin-top:10px;font-variant-numeric:tabular-nums;line-height:1}
+.kpi .s{font-size:12.5px;color:var(--muted);margin-top:6px}
+.kpi .s b{color:var(--lime);font-weight:500}
+.kpi svg{position:absolute;right:16px;top:16px;width:54px;height:20px}
+.d-body{display:grid;grid-template-columns:1.45fr 1fr}
+.feed{border-right:1px solid var(--line)}
+.f-head,.f-row{display:grid;grid-template-columns:86px 160px 1fr;gap:12px;align-items:center;padding:0 16px}
+.f-head{height:38px;border-bottom:1px solid var(--line)}
+.f-rows{height:396px;overflow:hidden}
+.f-row{height:44px;border-bottom:1px solid #1a1a1a;font-size:13.5px;animation:slide .5s ease both}
+.f-row .t{font-family:var(--mono);font-size:12px;color:var(--dim)}
+.f-row .d{color:#cfcfca;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.f-row.new{background:linear-gradient(90deg,rgba(193,255,114,.07),transparent 60%)}
+@keyframes slide{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;padding:3px 7px;border-radius:4px;justify-self:start;white-space:nowrap}
+.tag.conf{background:var(--lime);color:#0A0A0A}
+.tag.flag{background:var(--text);color:#0A0A0A}
+.tag.faq{border:1px solid #3a3a3a;color:var(--muted)}
+.tag.cart{border:1px solid var(--lime);color:var(--lime)}
+.tag.lead{border:1px solid var(--text);color:var(--text)}
+.tag.re{background:#262626;color:#d8d8d3}
+.side{display:flex;flex-direction:column}
+.chart{padding:16px 16px 12px;border-bottom:1px solid var(--line)}
+.chart .row{display:flex;justify-content:space-between;align-items:baseline}
+.chart .big{font-size:28px;font-weight:600;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.bars{display:flex;align-items:flex-end;gap:5px;height:150px;margin-top:16px}
+.bars i{flex:1;background:#262626;border-radius:3px 3px 0 0;transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+.bars i:last-child{background:var(--lime)}
+@keyframes grow{from{transform:scaleY(0)}}
+.axis{display:flex;justify-content:space-between;margin-top:6px}
+.flows{padding:10px 16px}
+.flow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;font-size:14px;border-bottom:1px solid #1a1a1a}
+.flow:last-child{border:0}
+.sw{width:34px;height:20px;border-radius:999px;background:var(--lime);position:relative}
+.sw::after{content:"";position:absolute;right:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#0A0A0A}
+.dash-cap{margin-top:14px;display:flex;justify-content:space-between}
+
+/* sections */
+.sec{padding:130px 0 40px}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:56px}
+.sec-head .k{display:block;margin-bottom:18px;color:var(--lime)}
+h2{font-size:clamp(34px,4.2vw,60px);line-height:1;letter-spacing:-.045em;font-weight:700}
+.sec-head p{color:var(--muted);font-size:17px;max-width:460px}
+
+/* modules */
+.mods{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.mod{grid-column:span 2;background:var(--p1);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;min-height:300px;transition:border-color .25s}
+.mod:hover{border-color:#3a4a2a}
+.mod:nth-child(4),.mod:nth-child(5){grid-column:span 3}
+.mod-top{display:flex;justify-content:space-between;align-items:center}
+.mod-top .on{font-family:var(--mono);font-size:11px;color:var(--lime);display:flex;align-items:center;gap:6px}
+.mod h3{font-size:24px;letter-spacing:-.035em;font-weight:650;margin-top:22px}
+.mod p{color:var(--muted);font-size:14.5px;margin-top:6px;max-width:420px}
+.chain{margin-top:auto;padding-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.chain span{font-family:var(--mono);font-size:11.5px;background:var(--p2);border:1px solid var(--line);border-radius:5px;padding:5px 8px;color:#cfcfca}
+.chain span.end{border-color:var(--lime);color:var(--lime)}
+.chain b{color:var(--dim);font-weight:400;font-family:var(--mono);font-size:12px}
+.mod .ships{margin-top:16px;padding-top:12px;border-top:1px dashed #262626}
+
+/* gantt */
+.gantt{border:1px solid var(--line);border-radius:14px;background:var(--p1);overflow:hidden}
+.g-row{display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid var(--line);min-height:76px}
+.g-row:last-child{border:0}
+.g-name{padding:16px 18px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+.g-name b{font-size:17px;letter-spacing:-.02em;font-weight:600}
+.g-name span{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.g-track{position:relative;background-image:linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:25% 100%}
+.g-head .g-track{display:grid;grid-template-columns:repeat(4,1fr)}
+.g-head .g-track span{padding:12px 14px;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em}
+.g-head{min-height:40px}
+.g-head .g-name{padding:12px 18px}
+.bar{position:absolute;top:50%;transform:translateY(-50%);height:34px;left:1%;display:flex;border-radius:6px;overflow:hidden;animation:wipe 1.2s cubic-bezier(.2,.8,.2,1) both}
+.gantt .bar{animation-play-state:paused}
+.gantt.go .bar{animation-play-state:running}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.bar i{font-style:normal;font-family:var(--mono);font-size:11px;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden}
+.bar .p1{background:#232323;color:#bdbdb8}
+.bar .p2{background:#2d2d2d;color:#d8d8d3}
+.bar .p3{background:#3a3a3a;color:var(--text)}
+.bar .p4{background:var(--lime);color:#0A0A0A;font-weight:600}
+.bar .maybe{background:repeating-linear-gradient(135deg,rgba(193,255,114,.25) 0 6px,rgba(193,255,114,.08) 6px 12px);color:var(--lime)}
+.g-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
+.g-legend span{display:flex;align-items:center;gap:7px}
+.g-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.tier{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--p1);display:flex;flex-direction:column}
+.tier.pop{border-color:var(--lime);background:linear-gradient(180deg,rgba(193,255,114,.06),transparent 40%),var(--p1)}
+.tier .top{display:flex;justify-content:space-between;align-items:center}
+.tier h3{font-size:24px;font-weight:650;letter-spacing:-.035em;margin-top:14px}
+.tier .pitch{color:var(--muted);font-size:14.5px;margin-top:6px;min-height:66px}
+.tier ul{list-style:none;margin:18px 0 22px}
+.tier li{font-size:14.5px;padding:8px 0;border-top:1px solid #1d1d1d;display:flex;gap:10px}
+.tier li::before{content:"→";font-family:var(--mono);color:var(--lime);font-size:12px;padding-top:2px}
+.tier .btn{margin-top:auto;justify-content:center}
+.pill{font-family:var(--mono);font-size:10.5px;background:var(--lime);color:#0A0A0A;border-radius:4px;padding:3px 7px}
+
+/* guardrails */
+.guard{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
+.checks{border:1px solid var(--line);border-radius:14px;background:var(--p1);overflow:hidden}
+.check{display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center;padding:20px;border-bottom:1px solid var(--line)}
+.check:last-child{border:0}
+.check .pass{font-family:var(--mono);font-size:11px;color:#0A0A0A;background:var(--lime);border-radius:4px;padding:4px 0;text-align:center}
+.check b{display:block;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.check span{font-size:14px;color:var(--muted)}
+.check .id{font-family:var(--mono);font-size:11px;color:var(--dim)}
+
+/* cta */
+.cta{padding:130px 0 110px}
+.cta-box{border:1px solid var(--line);border-radius:18px;background:radial-gradient(ellipse 60% 90% at 90% 110%,rgba(193,255,114,.22),transparent 60%),var(--p1);padding:56px;display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:end;overflow:hidden}
+.cta-box h2{font-size:clamp(38px,4.8vw,72px)}
+.agenda{font-family:var(--mono);font-size:13px;color:#cfcfca}
+.agenda div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #262626}
+.agenda div span:last-child{color:var(--dim)}
+.cta-box .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+footer{border-top:1px solid var(--line);padding:24px 0 90px;background:var(--bg)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:1080px){
+  .hero-top,.sec-head,.guard,.cta-box{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .kpi:nth-child(4){border-left:0}
+  .kpi:nth-child(n+4){border-top:1px solid var(--line)}
+  .d-body{grid-template-columns:1fr}
+  .feed{border-right:0;border-bottom:1px solid var(--line)}
+  .mods{grid-template-columns:1fr 1fr}
+  .mod,.mod:nth-child(4),.mod:nth-child(5){grid-column:span 1}
+  .tiers{grid-template-columns:1fr}
+  .nav nav{display:none}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .status .wrap span:nth-child(3){display:none}
+  .hero{padding:48px 0 24px}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi:nth-child(odd){border-left:0}
+  .kpi:nth-child(4){border-left:1px solid var(--line)}
+  .kpi:nth-child(n+3){border-top:1px solid var(--line)}
+  .f-head,.f-row{grid-template-columns:62px 1fr;row-gap:0}
+  .f-row{height:auto;padding:9px 16px}
+  .f-row .d,.f-head span:nth-child(3){grid-column:2}
+  .f-head span:nth-child(3){display:none}
+  .f-rows{height:480px}
+  .segs{display:none}
+  .mods{grid-template-columns:1fr}
+  .g-row{grid-template-columns:1fr}
+  .g-name{border-right:0;border-bottom:1px solid var(--line)}
+  .g-track{min-height:60px}
+  .g-head{display:none}
+  .cta-box{padding:28px}
+  .nav .btn.sm{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="mark" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="6"/>
+      <path d="M69.44 8.31C51.94 45.83 54.17 51.94 91.69 69.44 54.17 51.94 48.06 54.17 30.56 91.69 48.06 54.17 45.83 48.06 8.31 30.56 45.83 48.06 51.94 45.83 69.44 8.31Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="status">
+  <div class="wrap k">
+    <span><i class="dot"></i>All flows live</span>
+    <span>IST <b class="mono" id="clock" style="color:var(--text);font-weight:500">--:--:--</b></span>
+    <span>Runs on your WhatsApp Business number</span>
+  </div>
+</div>
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="Flowwork home"><svg><use href="#mark"/></svg>flowwork</a>
+    <nav><a href="#modules">/flows</a><a href="#deploy">/deploy</a><a href="#guardrails">/guardrails</a></nav>
+    <a href="#book" class="btn btn-lime sm">Book a 15-min audit</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <h1>WhatsApp ops,<br><span class="l">on autopilot.</span></h1>
+      <div>
+        <p>Flowwork runs sales and support on WhatsApp for Indian D2C brands. COD orders confirmed before dispatch, questions answered around the clock, carts recovered, gifting leads qualified and customers reminded to reorder. Your team watches the numbers instead of typing replies.</p>
+        <div class="ctas"><a class="btn btn-lime" href="#book">Book a 15-min audit →</a><a class="btn btn-dark" href="#modules">See the flows</a></div>
+      </div>
+    </div>
+
+    <div class="dash" aria-label="Sample Flowwork dashboard">
+      <div class="d-bar">
+        <div class="crumb"><svg><use href="#mark"/></svg>flowwork <span>/</span> <b>Kaapi Co.</b></div>
+        <div class="segs"><span class="on">Today</span><span>7 days</span><span>30 days</span></div>
+        <div class="live"><i class="dot"></i>Live <em>sample data</em></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><span class="k">COD confirmed</span><div class="v" data-count="312">312</div><div class="s"><b>91%</b> of COD orders</div><svg viewBox="0 0 64 22"><path d="M0 18 L8 15 L16 16 L24 11 L32 12 L40 8 L48 9 L56 4 L64 3" fill="none" stroke="#C1FF72" stroke-width="1.6"/></svg></div>
+        <div class="kpi"><span class="k">Held back</span><div class="v" data-count="27">27</div><div class="s">unconfirmed or unreachable</div><svg viewBox="0 0 64 22"><path d="M0 8 L8 10 L16 7 L24 12 L32 9 L40 13 L48 11 L56 14 L64 12" fill="none" stroke="#666" stroke-width="1.6"/></svg></div>
+        <div class="kpi"><span class="k">Carts recovered</span><div class="v" data-count="41">41</div><div class="s"><b>₹61,240</b> recovered</div><svg viewBox="0 0 64 22"><path d="M0 19 L8 17 L16 18 L24 13 L32 14 L40 10 L48 11 L56 6 L64 5" fill="none" stroke="#C1FF72" stroke-width="1.6"/></svg></div>
+        <div class="kpi"><span class="k">Chats answered</span><div class="v" data-count="1084">1,084</div><div class="s">median reply <b>4s</b></div><svg viewBox="0 0 64 22"><path d="M0 14 L8 12 L16 15 L24 9 L32 11 L40 6 L48 8 L56 5 L64 6" fill="none" stroke="#C1FF72" stroke-width="1.6"/></svg></div>
+        <div class="kpi"><span class="k">Gifting leads</span><div class="v" data-count="6">6</div><div class="s">sent to your sales team</div><svg viewBox="0 0 64 22"><path d="M0 18 L8 18 L16 14 L24 16 L32 12 L40 12 L48 9 L56 10 L64 6" fill="none" stroke="#666" stroke-width="1.6"/></svg></div>
+      </div>
+      <div class="d-body">
+        <div class="feed">
+          <div class="f-head k"><span>Time</span><span>Event</span><span>Detail</span></div>
+          <div class="f-rows" id="feed"></div>
+        </div>
+        <div class="side">
+          <div class="chart">
+            <div class="row"><span class="k">Revenue via WhatsApp · 14 days</span><span class="k" style="color:var(--lime)">+18%</span></div>
+            <div class="big">₹4,82,300</div>
+            <div class="bars" id="bars"></div>
+            <div class="axis k"><span>12 Sep</span><span>Today</span></div>
+          </div>
+          <div class="flows">
+            <div class="flow"><span>COD confirmation</span><span class="sw" aria-label="on"></span></div>
+            <div class="flow"><span>24x7 answers</span><span class="sw" aria-label="on"></span></div>
+            <div class="flow"><span>Cart recovery</span><span class="sw" aria-label="on"></span></div>
+            <div class="flow"><span>Gifting capture</span><span class="sw" aria-label="on"></span></div>
+            <div class="flow"><span>Reorder reminders</span><span class="sw" aria-label="on"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-cap k"><span>Illustration · example brand · sample numbers</span><span>Revenue OS includes a monthly revenue dashboard</span></div>
+  </div>
+</section>
+
+<section class="sec" id="modules">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="k">/flows</span><h2>Five flows. Each one replaces a job someone does by hand.</h2></div>
+      <p>Each flow is written in your brand voice, runs on your number, and switches on only after you've approved every message in it.</p>
+    </div>
+    <div class="mods">
+      <article class="mod">
+        <div class="mod-top"><span class="k">Flow 01</span><span class="on"><i class="dot"></i>ON</span></div>
+        <h3>COD confirmation</h3>
+        <p>Every cash-on-delivery order confirmed before it ships.</p>
+        <div class="chain"><span>COD order placed</span><b>→</b><span>confirm on WhatsApp</span><b>→</b><span>no reply: remind</span><b>→</b><span class="end">still nothing: hold</span></div>
+        <div class="ships k">Ships with COD Shield</div>
+      </article>
+      <article class="mod">
+        <div class="mod-top"><span class="k">Flow 02</span><span class="on"><i class="dot"></i>ON</span></div>
+        <h3>24x7 answers</h3>
+        <p>Questions answered in seconds, with your catalogue in the chat.</p>
+        <div class="chain"><span>customer asks</span><b>→</b><span>answer from your FAQs</span><b>→</b><span>share product</span><b>→</b><span class="end">order</span></div>
+        <div class="ships k">Ships with Growth Engine</div>
+      </article>
+      <article class="mod">
+        <div class="mod-top"><span class="k">Flow 03</span><span class="on"><i class="dot"></i>ON</span></div>
+        <h3>Cart recovery</h3>
+        <p>Abandoned carts nudged where customers actually read.</p>
+        <div class="chain"><span>cart abandoned</span><b>→</b><span>WhatsApp nudge</span><b>→</b><span>questions answered</span><b>→</b><span class="end">checkout</span></div>
+        <div class="ships k">Ships with Growth Engine</div>
+      </article>
+      <article class="mod">
+        <div class="mod-top"><span class="k">Flow 04</span><span class="on"><i class="dot"></i>ON</span></div>
+        <h3>Gifting and bulk enquiries</h3>
+        <p>Corporate orders qualified before a human ever picks them up.</p>
+        <div class="chain"><span>"need 150 hampers"</span><b>→</b><span>quantity · budget · date · city</span><b>→</b><span class="end">lead to your sales team</span></div>
+        <div class="ships k">Ships with Growth Engine</div>
+      </article>
+      <article class="mod">
+        <div class="mod-top"><span class="k">Flow 05</span><span class="on"><i class="dot"></i>ON</span></div>
+        <h3>Reorder reminders</h3>
+        <p>Customers reminded right when they usually run out.</p>
+        <div class="chain"><span>delivered</span><b>→</b><span>wait for usual run-out</span><b>→</b><span>one-tap reorder</span><b>→</b><span class="end">repeat order</span></div>
+        <div class="ships k">Ships with Revenue OS</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="deploy">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="k">/deploy</span><h2>From audit to live, on a clock.</h2></div>
+      <p>Three packages, three timelines. Every one ends the same way: you approve, then it goes live.</p>
+    </div>
+    <div class="gantt">
+      <div class="g-row g-head"><div class="g-name k">Package</div><div class="g-track"><span>WEEK 1</span><span>WEEK 2</span><span>WEEK 3</span><span>WEEK 4</span></div></div>
+      <div class="g-row"><div class="g-name"><b>COD Shield</b><span>live in 7 days</span></div>
+        <div class="g-track"><div class="bar" style="width:24%"><i class="p1" style="flex:1.2">map</i><i class="p2" style="flex:2">build</i><i class="p3" style="flex:1.4">approve</i><i class="p4" style="flex:1">live</i></div></div></div>
+      <div class="g-row"><div class="g-name"><b>Growth Engine</b><span>live in 2 weeks</span></div>
+        <div class="g-track"><div class="bar" style="width:49%;animation-delay:.15s"><i class="p1" style="flex:1.4">map</i><i class="p2" style="flex:4">build flows + campaign</i><i class="p3" style="flex:2">approve</i><i class="p4" style="flex:1">live</i></div></div></div>
+      <div class="g-row"><div class="g-name"><b>Revenue OS</b><span>live in 3–4 weeks</span></div>
+        <div class="g-track"><div class="bar" style="width:98%;animation-delay:.3s"><i class="p1" style="flex:1.5">map</i><i class="p2" style="flex:6">build ordering, reorders, dashboard</i><i class="p3" style="flex:2.4">approve</i><i class="p4" style="flex:1.1">live</i><i class="maybe" style="flex:5">buffer · week 4</i></div></div></div>
+    </div>
+    <div class="g-legend k"><span><i style="background:#232323"></i>map your store + chats</span><span><i style="background:#2d2d2d"></i>build</span><span><i style="background:#3a3a3a"></i>you review + approve</span><span><i style="background:var(--lime)"></i>live</span></div>
+
+    <div class="tiers">
+      <article class="tier">
+        <div class="top"><span class="k">Tier 01</span></div>
+        <h3>COD Shield</h3>
+        <p class="pitch">Stops losses from fake and unreachable COD orders with instant WhatsApp confirmation and pre-dispatch flagging.</p>
+        <ul><li>Instant COD confirmation</li><li>Pre-dispatch flagging</li><li>Your brand voice</li></ul>
+        <a class="btn btn-dark" href="#book">Deploy COD Shield</a>
+      </article>
+      <article class="tier pop">
+        <div class="top"><span class="k">Tier 02</span><span class="pill">MOST POPULAR</span></div>
+        <h3>Growth Engine</h3>
+        <p class="pitch">A complete WhatsApp assistant that answers, sells, updates and follows up.</p>
+        <ul><li>24x7 answers + catalogue</li><li>Order updates</li><li>Abandoned cart recovery</li><li>Gifting enquiry capture</li><li>Diwali campaign</li></ul>
+        <a class="btn btn-lime" href="#book">Deploy Growth Engine →</a>
+      </article>
+      <article class="tier">
+        <div class="top"><span class="k">Tier 03</span></div>
+        <h3>Revenue OS</h3>
+        <p class="pitch">A full WhatsApp sales channel with ordering, reorders and a monthly revenue dashboard.</p>
+        <ul><li>In-chat ordering</li><li>Automatic reorders</li><li>Distributor lead capture</li><li>Year-round festival campaigns</li><li>Monthly revenue dashboard</li></ul>
+        <a class="btn btn-dark" href="#book">Deploy Revenue OS</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="guardrails">
+  <div class="wrap guard">
+    <div><span class="k" style="color:var(--lime);display:block;margin-bottom:18px">/guardrails</span><h2>Four checks every flow passes before launch.</h2></div>
+    <div class="checks">
+      <div class="check"><span class="pass">PASS</span><div><b>Your own WhatsApp Business number</b><span>No new number. Customers message the brand they know.</span></div><span class="id">G-01</span></div>
+      <div class="check"><span class="pass">PASS</span><div><b>Written in your brand voice</b><span>Formal, warm or Hinglish, whatever your brand sounds like.</span></div><span class="id">G-02</span></div>
+      <div class="check"><span class="pass">PASS</span><div><b>Approved by you before it goes live</b><span>You read every message before a customer does.</span></div><span class="id">G-03</span></div>
+      <div class="check"><span class="pass">PASS</span><div><b>No manual replies from your team</b><span>Less time on chats, fewer returned parcels, more repeat orders.</span></div><span class="id">G-04</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="book">
+  <div class="wrap">
+    <div class="cta-box">
+      <div><span class="k" style="color:var(--lime)">/audit</span><h2 style="margin-top:18px">See your numbers before you commit to anything.</h2></div>
+      <div>
+        <div class="agenda"><div><span>COD + return rate</span><span>05 min</span></div><div><span>WhatsApp chat load</span><span>05 min</span></div><div><span>Which flow pays first</span><span>05 min</span></div></div>
+        <div class="ctas"><a class="btn btn-lime" href="https://cal.com/lavparab/ai-automation-audit-with-lavparab">Book a 15-min audit →</a><a class="btn btn-dark" href="https://wa.me/917507830937">WhatsApp us</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap k">
+    <span>© Flowwork · Pune, India</span>
+    <span>Less time on chats · Fewer returned parcels · More repeat orders</span>
+    <span>+91 75078 30937</span>
+  </div>
+</footer>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clock = document.getElementById('clock');
+const fmt = new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+const tick = () => clock.textContent = fmt.format(new Date());
+tick(); setInterval(tick, 1000);
+
+// bar chart
+const vals=[42,38,51,47,55,49,62,58,54,66,71,63,74,82];
+document.getElementById('bars').innerHTML = vals.map((v,i)=>`<i style="height:${v}%;animation-delay:${i*40}ms" title="₹${(v*420).toLocaleString('en-IN')}"></i>`).join('');
+
+// live feed
+const cities=['Pune','Jaipur','Kochi','Indore','Lucknow','Guwahati','Surat','Mysuru','Nagpur','Bhopal','Chandigarh','Vizag'];
+const events=[
+  ()=>['conf','COD_CONFIRMED',`#KC-${rnd(40100,40999)} · ${pick(cities)} · ₹${pick(['899','1,299','1,499','2,199','649'])}`],
+  ()=>['conf','COD_CONFIRMED',`#KC-${rnd(40100,40999)} · ${pick(cities)} · ₹${pick(['1,049','1,799','549'])}`],
+  ()=>['faq','FAQ_ANSWERED',`"${pick(['Is COD available in 452001?','Is it sugar free?','When will my order arrive?','Do you have a 500g pack?','Can I change my address?'])}" · 3s`],
+  ()=>['faq','FAQ_ANSWERED',`"${pick(['Which roast is less bitter?','Do you ship to Kohima?','Is the jar glass?'])}" · 4s`],
+  ()=>['cart','CART_RECOVERED',`₹${pick(['2,450','1,899','3,120','1,299'])} · nudge → checkout`],
+  ()=>['flag','HELD',`#KC-${rnd(40100,40999)} · no reply ×2 · dispatch paused`],
+  ()=>['lead','GIFTING_LEAD',`${pick(['150','80','300','60'])} units · Diwali · ${pick(['Mumbai','Bengaluru','Gurugram','Hyderabad'])} → sales`],
+  ()=>['re','REORDER_SENT',`day ${pick(['28','30','32'])} · Cold Brew Kit · one-tap`],
+];
+function rnd(a,b){return Math.floor(a+Math.random()*(b-a))}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+const feed=document.getElementById('feed');
+let t = new Date();
+function row(fresh){
+  const [cls,name,detail]=pick(events)();
+  const time = fmt.format(t);
+  const el=document.createElement('div'); el.className='f-row'+(fresh?' new':'');
+  el.innerHTML=`<span class="t">${time}</span><span class="tag ${cls}">${name}</span><span class="d">${detail}</span>`;
+  return el;
+}
+for(let i=0;i<9;i++){ t=new Date(Date.now()-i*9000); const r=row(false); r.style.animation='none'; feed.append(r); }
+if(!reduce) setInterval(()=>{
+  t=new Date(); feed.prepend(row(true));
+  [...feed.children].slice(10).forEach(n=>n.remove());
+  setTimeout(()=>feed.children[1] && feed.children[1].classList.remove('new'), 1400);
+}, 2200);
+const gantt=document.querySelector('.gantt');
+new IntersectionObserver((es,o)=>es.forEach(e=>{ if(e.isIntersecting){ gantt.classList.add('go'); o.disconnect(); } }),{threshold:.4}).observe(gantt);
+</script>
+<script src="switcher.js" defer></script>
+</body>
+</html>
