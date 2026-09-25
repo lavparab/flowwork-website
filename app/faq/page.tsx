@@ -4,15 +4,16 @@ import FaqThread from "@/components/chat/FaqThread";
 import CtaSection from "@/components/CtaSection";
 import JsonLd from "@/components/JsonLd";
 import PageHeader from "@/components/PageHeader";
+import WhatsAppLink from "@/components/WhatsAppLink";
 import { ALL_FAQS, FAQ_GROUPS } from "@/lib/faqs";
-import { whatsappUrl } from "@/lib/site";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "FAQ",
+export const metadata: Metadata = pageMeta({
+  title: "WhatsApp Automation FAQ for D2C Brands",
   description:
-    "Answers about Flowwork’s WhatsApp automation for Indian D2C brands: your number, your brand voice, packages, timelines and what we need from you.",
-  alternates: { canonical: "/faq" },
-};
+    "Answers about Flowwork’s WhatsApp automation for Indian D2C brands: using your own number, brand voice, packages, timelines, pricing and what we need from you.",
+  path: "/faq",
+});
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z]+/g, "-").replace(/(^-|-$)/g, "");
 
@@ -30,22 +31,23 @@ export default function FaqPage() {
           })),
         }}
       />
+      <JsonLd data={breadcrumbLd([{ name: "FAQ", path: "/faq" }])} />
 
       <PageHeader
-        eyebrow="FAQ"
+        eyebrow="WhatsApp automation FAQ"
         title={
           <>
-            Questions founders ask us.
+            Questions founders ask us.{" "}
             <br />
             <span className="text-muted">Answered short.</span>
           </>
         }
         lede="Can’t find yours? Ask it on WhatsApp, or bring it to the 15-minute audit."
       >
-        <a href={whatsappUrl("Hi Flowwork, I have a question:")} className="btn btn-ghost">
+        <WhatsAppLink location="faq-hero" text="Hi Flowwork, I have a question:" className="btn btn-ghost">
           Ask on WhatsApp
-        </a>
-        <BookButton />
+        </WhatsAppLink>
+        <BookButton location="faq-hero" />
       </PageHeader>
 
       <section className="pb-24">

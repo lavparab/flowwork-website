@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { GA_ID } from "@/lib/analytics";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import { SITE, whatsappUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacy policy",
-  description: "How Flowwork collects, uses and protects personal data.",
-  alternates: { canonical: "/privacy" },
-};
+export const metadata: Metadata = pageMeta({
+  title: "Privacy Policy",
+  description:
+    "How Flowwork collects, uses and protects personal data when you visit our website, book an audit, or when we run WhatsApp automation for your brand.",
+  path: "/privacy",
+});
 
 // Keep this date current whenever the policy changes.
 const UPDATED = "25 September 2026";
@@ -25,6 +29,7 @@ export default function PrivacyPage() {
 
   return (
     <article className="wrap max-w-[820px] pt-16 pb-28 md:pt-24">
+      <JsonLd data={breadcrumbLd([{ name: "Privacy policy", path: "/privacy" }])} />
       <p className="kicker">Legal</p>
       <h1 className="display mt-7 !text-[clamp(40px,5vw,64px)]">Privacy policy</h1>
       <p className="mt-5 text-dim">Last updated {UPDATED}</p>
@@ -47,7 +52,14 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong>When you use this website:</strong> standard technical data such as your browser type and the pages
-            you visit, as recorded by our hosting provider.
+            you visit, as recorded by our hosting provider
+            {GA_ID
+              ? ", and by Google Analytics, which uses cookies to show us how visitors find and use the site (for example, which pages are read and which buttons are clicked)."
+              : "."}
+          </li>
+          <li>
+            <strong>When you use the contact form:</strong> nothing is stored by this website. The form opens WhatsApp
+            with your message filled in, and it reaches us only if you choose to send it.
           </li>
         </ul>
 
@@ -74,6 +86,7 @@ export default function PrivacyPage() {
           <li>Cal.com, for booking calls</li>
           <li>Meta (WhatsApp), for messaging</li>
           <li>Our website hosting provider</li>
+          {GA_ID && <li>Google, for website analytics</li>}
         </ul>
         <p>We may also disclose data where the law requires it.</p>
 

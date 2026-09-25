@@ -18,11 +18,14 @@ Opens on http://localhost:3000.
 
 | What | File |
 | --- | --- |
-| WhatsApp number, city, site URL, optional email, tagline | [`lib/site.ts`](lib/site.ts) |
+| WhatsApp number, city, site URL, optional email and hours, social links, tagline | [`lib/site.ts`](lib/site.ts) |
 | Cal.com booking link (used by every "Book a 15-min audit" button and the calendar on /contact) | [`lib/cal.ts`](lib/cal.ts) |
 | The three packages: names, timelines, features, phases, FAQs | [`lib/packages.ts`](lib/packages.ts) |
 | Example WhatsApp conversations (hero phone, "What it handles", package demos) | [`lib/chat.ts`](lib/chat.ts) |
 | FAQ page questions | [`lib/faqs.ts`](lib/faqs.ts) |
+| Resource guides (list, titles, dates) and their pages | [`lib/articles.ts`](lib/articles.ts), `app/resources/<slug>/page.tsx` |
+| Client testimonials (the section stays hidden while this is empty) | [`lib/proof.ts`](lib/proof.ts) |
+| Page titles, descriptions, canonical and share tags | `pageMeta()` in [`lib/seo.ts`](lib/seo.ts), called at the top of each page |
 | Colours, fonts, chat bubble and receipt styles | [`app/globals.css`](app/globals.css) |
 | Privacy policy and terms (update the date at the top when you change them) | [`app/privacy/page.tsx`](app/privacy/page.tsx), [`app/terms/page.tsx`](app/terms/page.tsx) |
 
@@ -35,8 +38,12 @@ No prices appear anywhere on the site. The FAQ says quotes come after the audit.
 ## Pages
 
 `/` · `/packages` · `/packages/cod-shield` · `/packages/growth-engine` ·
-`/packages/revenue-os` · `/how-it-works` · `/rto-calculator` · `/faq` · `/contact` ·
-`/privacy` · `/terms`
+`/packages/revenue-os` · `/how-it-works` · `/rto-calculator` · `/resources` ·
+`/resources/reduce-rto-cod-orders` · `/resources/whatsapp-cod-confirmation` · `/about` ·
+`/faq` · `/contact` · `/privacy` · `/terms`
+
+Common alternate URLs (`/services`, `/pricing`, `/blog/...`, `/about-us` and so on) redirect
+to the real pages. See `next.config.ts`.
 
 The RTO calculator page saves its sliders in the URL once someone moves them
 (`/rto-calculator?orders=2000&cod=60&rto=25&cost=150&stop=1`), so you can send a
@@ -52,20 +59,34 @@ regenerate them.
 
 ## Deploy
 
-Same as the previous site:
+The code lives on GitHub at `lavparab/flowwork-website`. The easiest setup is to import
+that repo in Vercel (Add New → Project), so every push to `main` deploys automatically.
+Or deploy from your machine like the previous site:
 
 ```bash
 npx vercel
 ```
 
-After the first deploy, `npx vercel --prod` pushes updates. If the domain isn't
-`theflowwork.com`, change `url` in `lib/site.ts` so the sitemap and share previews
-point to the right place.
+If the domain isn't `theflowwork.com`, change `url` in `lib/site.ts` and the `www`
+redirect in `next.config.ts`, so the sitemap, canonicals and share previews point to the
+right place.
 
-## Analytics
+## Analytics and Search Console
 
-Plausible or Umami is commented out at the bottom of [`app/layout.tsx`](app/layout.tsx).
-Uncomment one line and add your domain.
+Copy `.env.example` and fill in the values, locally in `.env.local` and in Vercel →
+Settings → Environment Variables:
+
+- `NEXT_PUBLIC_GA_ID`: turns on Google Analytics 4. The site sends `book_audit_click`,
+  `whatsapp_click`, `contact_form_submit`, `calculator_used` and `generate_lead` (a
+  completed Cal.com booking). The privacy policy mentions analytics automatically once
+  this is set.
+- `NEXT_PUBLIC_GSC_VERIFICATION`: Search Console meta-tag verification (not needed if you
+  verify through DNS).
+
+## SEO
+
+[`SEO.md`](SEO.md) has the status of every checklist item, the keyword map, a content plan
+and the launch steps.
 
 ## Mockups
 

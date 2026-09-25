@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "@/components/BookButton";
 import CtaSection from "@/components/CtaSection";
+import JsonLd from "@/components/JsonLd";
 import PackageCards from "@/components/PackageCards";
 import PageHeader from "@/components/PageHeader";
 import { COMPARISON, PACKAGES } from "@/lib/packages";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Packages",
+export const metadata: Metadata = pageMeta({
+  title: "WhatsApp Automation Packages for D2C Brands",
   description:
-    "COD Shield, Growth Engine and Revenue OS: three WhatsApp automation packages for Indian D2C brands, live in 7 days to 4 weeks. Each one builds on the last.",
-  alternates: { canonical: "/packages" },
-};
+    "Compare COD Shield, Growth Engine and Revenue OS: WhatsApp automation packages for Indian D2C brands, live in 7 days to 4 weeks. Each builds on the last.",
+  path: "/packages",
+});
 
 const PICK = [
   { pain: "Returned COD parcels are eating your margin.", slug: "cod-shield" },
@@ -22,18 +24,19 @@ const PICK = [
 export default function PackagesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Packages", path: "/packages" }])} />
       <PageHeader
-        eyebrow="Packages"
+        eyebrow="WhatsApp automation packages"
         title={
           <>
-            Three packages.
+            Three packages.{" "}
             <br />
             <span className="text-muted">Each one builds on the last.</span>
           </>
         }
         lede="Start with the problem that costs you most today. Growth Engine includes everything in COD Shield, and Revenue OS includes everything in Growth Engine."
       >
-        <BookButton />
+        <BookButton location="packages-hero" />
       </PageHeader>
 
       <section className="pb-24">

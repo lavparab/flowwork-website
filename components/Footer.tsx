@@ -1,18 +1,30 @@
 import Link from "next/link";
 import { PACKAGES } from "@/lib/packages";
-import { SITE, whatsappUrl } from "@/lib/site";
+import { SITE, SOCIAL_LINKS } from "@/lib/site";
 import { Logo } from "./Logo";
+import WhatsAppLink from "./WhatsAppLink";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line pt-16 pb-10">
+    <footer className="border-t border-line pt-16 pb-24 sm:pb-10">
       <div className="wrap">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" aria-label="Flowwork home" className="inline-block text-paper">
               <Logo className="h-[26px] w-auto" />
             </Link>
             <p className="mt-5 max-w-[300px] text-[15px] text-muted">{SITE.tagline}</p>
+            {SOCIAL_LINKS.length > 0 && (
+              <ul className="mt-6 flex flex-wrap gap-4 text-[14px]">
+                {SOCIAL_LINKS.map(([name, url]) => (
+                  <li key={name}>
+                    <a href={url} target="_blank" rel="noopener me" className="text-muted transition-colors hover:text-lime">
+                      {name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <FooterCol title="Packages">
@@ -25,17 +37,19 @@ export default function Footer() {
           </FooterCol>
 
           <FooterCol title="Flowwork">
+            <FooterLink href="/about">About</FooterLink>
             <FooterLink href="/how-it-works">How it works</FooterLink>
             <FooterLink href="/rto-calculator">RTO calculator</FooterLink>
+            <FooterLink href="/resources">Resources</FooterLink>
             <FooterLink href="/faq">FAQ</FooterLink>
             <FooterLink href="/contact">Contact</FooterLink>
           </FooterCol>
 
           <FooterCol title="Talk to us">
             <li>
-              <a href={whatsappUrl()} className="text-muted transition-colors hover:text-text">
+              <WhatsAppLink location="footer" className="text-muted transition-colors hover:text-text">
                 WhatsApp {SITE.whatsappDisplay}
-              </a>
+              </WhatsAppLink>
             </li>
             {SITE.email && (
               <li>
@@ -45,8 +59,10 @@ export default function Footer() {
               </li>
             )}
             <li className="text-dim">
-              {SITE.city}, {SITE.country}
+              {SITE.city}, {SITE.region}, {SITE.country}
             </li>
+            <li className="text-dim">Serving D2C brands across {SITE.serviceArea}</li>
+            {SITE.hours && <li className="text-dim">{SITE.hours}</li>}
           </FooterCol>
         </div>
 

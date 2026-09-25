@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "@/components/BookButton";
 import CtaSection from "@/components/CtaSection";
+import JsonLd from "@/components/JsonLd";
 import PageHeader from "@/components/PageHeader";
 import { PROCESS } from "@/components/ProcessSteps";
 import { PACKAGES } from "@/lib/packages";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "How it works",
+export const metadata: Metadata = pageMeta({
+  title: "How WhatsApp Automation Works for D2C Brands",
   description:
-    "From a 15-minute audit to live on your own WhatsApp Business number in 7 days to 4 weeks. Written in your brand voice, approved by you before launch.",
-  alternates: { canonical: "/how-it-works" },
-};
+    "From a free 15-minute audit to live on your own WhatsApp Business number in 7 days to 4 weeks. Written in your brand voice and approved by you before launch.",
+  path: "/how-it-works",
+});
 
 const STEP_DETAIL = [
   [
@@ -60,8 +62,9 @@ const NOT_FIT = [
 export default function HowItWorksPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "How it works", path: "/how-it-works" }])} />
       <PageHeader
-        eyebrow="How it works"
+        eyebrow="How our WhatsApp automation works"
         title={
           <>
             From a 15-minute call <span className="text-muted">to live on WhatsApp.</span>
@@ -69,7 +72,7 @@ export default function HowItWorksPage() {
         }
         lede="Four steps, and you sign off on every one of them. Most of the work happens on our side."
       >
-        <BookButton />
+        <BookButton location="how-hero" />
       </PageHeader>
 
       <section className="pb-8">

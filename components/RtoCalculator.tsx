@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 
 const inr = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
 
@@ -34,8 +35,16 @@ const PREVENT = [
  * With `shareable`, the inputs are read from and written to the URL
  * (?orders=&cod=&rto=&cost=&stop=) so a filled-in link can be sent to a prospect.
  */
-export default function RtoCalculator({ shareable = false }: { shareable?: boolean }) {
+export default function RtoCalculator({
+  shareable = false,
+  headingLevel = "h3",
+}: {
+  shareable?: boolean;
+  headingLevel?: "h2" | "h3";
+}) {
+  const Heading = headingLevel;
   const id = useId();
+  const used = useRef(false);
   const [v, setV] = useState<Values>(DEFAULTS);
   const [prevent, setPrevent] = useState(1);
   const [copied, setCopied] = useState(false);
@@ -57,6 +66,10 @@ export default function RtoCalculator({ shareable = false }: { shareable?: boole
   function update(nextV: Values, nextPrevent: number) {
     setV(nextV);
     setPrevent(nextPrevent);
+    if (!used.current) {
+      used.current = true;
+      track("calculator_used", { page: shareable ? "calculator" : "home" });
+    }
     if (!shareable) return;
     const q = new URLSearchParams({
       ...Object.fromEntries(Object.entries(nextV).map(([k, n]) => [k, String(n)])),
@@ -73,11 +86,11 @@ export default function RtoCalculator({ shareable = false }: { shareable?: boole
     <div className="receipt-wrap">
       <div className="receipt" role="group" aria-labelledby={`${id}-title`}>
         <div className="flex items-start justify-between border-b border-dashed border-[var(--r-rule)] pb-[18px]">
-          <h3 id={`${id}-title`} className="text-[19px] leading-tight font-bold tracking-[-0.03em]">
+          <Heading id={`${id}-title`} className="text-[19px] leading-tight font-bold tracking-[-0.03em]">
             What your COD
             <br />
             returns cost you
-          </h3>
+          </Heading>
           <span className="mono-label text-right leading-relaxed">
             Estimate
             <br />
@@ -156,6 +169,7 @@ export default function RtoCalculator({ shareable = false }: { shareable?: boole
             onClick={async () => {
               try {
                 await navigator.clipboard.writeText(window.location.href);
+                track("calculator_link_copied");
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               } catch {

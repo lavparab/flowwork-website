@@ -56,7 +56,9 @@ export default function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <BookButton className="btn btn-lime btn-sm hidden sm:inline-flex">Book a 15-min audit</BookButton>
+          <BookButton location="nav" className="btn btn-lime btn-sm hidden sm:inline-flex">
+            Book a 15-min audit
+          </BookButton>
           <button
             type="button"
             className="-mr-2 grid h-11 w-11 place-items-center rounded-full lg:hidden"
@@ -87,7 +89,7 @@ export default function Nav() {
         className="fixed inset-x-0 top-[72px] bottom-0 overflow-y-auto bg-ink lg:hidden"
       >
         <nav aria-label="Mobile" className="wrap flex flex-col pt-6 pb-10">
-          {[{ href: "/", label: "Home" }, ...NAV_LINKS, { href: "/contact", label: "Contact" }].map((l) => (
+          {[{ href: "/", label: "Home" }, ...NAV_LINKS, { href: "/faq", label: "FAQ" }, { href: "/contact", label: "Contact" }].map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -98,7 +100,7 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <BookButton className="btn btn-lime mt-8 w-full" />
+          <BookButton location="mobile-menu" className="btn btn-lime mt-8 w-full" />
         </nav>
       </div>
     </header>

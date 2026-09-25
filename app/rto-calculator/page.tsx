@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "@/components/BookButton";
 import CtaSection from "@/components/CtaSection";
+import JsonLd from "@/components/JsonLd";
 import RtoCalculator from "@/components/RtoCalculator";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "RTO calculator: what COD returns cost you",
+export const metadata: Metadata = pageMeta({
+  title: "RTO Calculator: What COD Returns Cost You",
   description:
-    "Work out how much fake and unreachable cash-on-delivery orders cost your D2C brand every month, and what confirming them on WhatsApp could save.",
-  alternates: { canonical: "/rto-calculator" },
-};
+    "Free RTO calculator for D2C brands: see what fake and unreachable COD orders cost you each month, and what confirming them on WhatsApp could save.",
+  path: "/rto-calculator",
+});
 
 const MATH = [
   ["Parcels coming back", "Orders per month × share paid by COD × share of COD orders returned"],
@@ -20,12 +23,28 @@ const MATH = [
 export default function CalculatorPage() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "RTO calculator for COD orders",
+          url: `${SITE.url}/rto-calculator`,
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Any",
+          isAccessibleForFree: true,
+          offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+          publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+        }}
+      />
+      <JsonLd data={breadcrumbLd([{ name: "RTO calculator", path: "/rto-calculator" }])} />
       <section className="pt-16 pb-24 md:pt-24">
         <div className="wrap grid items-start gap-14 lg:grid-cols-[1fr_minmax(0,500px)] lg:gap-20">
           <div className="lg:sticky lg:top-28">
-            <p className="kicker">RTO calculator</p>
-            <h1 className="display mt-7 !text-[clamp(42px,5.2vw,76px)]">
-              What are COD returns <span className="text-lime">really</span> costing you?
+            <h1>
+              <span className="kicker">RTO calculator for COD orders</span>{" "}
+              <span className="display mt-7 block !text-[clamp(42px,5.2vw,76px)]">
+                What are COD returns <span className="text-lime">really</span> costing you?
+              </span>
             </h1>
             <p className="lede mt-7 max-w-[540px]">
               Every fake or unreachable cash-on-delivery order costs you shipping both ways, packaging and a sale that
@@ -35,12 +54,12 @@ export default function CalculatorPage() {
               Set the sliders to your numbers. Your settings are saved in the link, so you can send it to a co-founder.
             </p>
             <div className="mt-9">
-              <BookButton>
+              <BookButton location="calculator-hero">
                 Run it with your real order data <span className="arrow">→</span>
               </BookButton>
             </div>
           </div>
-          <RtoCalculator shareable />
+          <RtoCalculator shareable headingLevel="h2" />
         </div>
       </section>
 
@@ -73,7 +92,11 @@ export default function CalculatorPage() {
             <h2 className="h2 mt-[18px] max-w-[760px]">COD Shield confirms every COD order on WhatsApp before it ships.</h2>
             <p className="mt-6 max-w-[600px] text-muted">
               Orders nobody confirms are flagged before dispatch, so you stop paying to ship parcels that come back.
-              Live in 7 days, on your own WhatsApp Business number.
+              Live in 7 days, on your own WhatsApp Business number. Prefer to do it yourself? Read our guide to{" "}
+              <Link href="/resources/reduce-rto-cod-orders" className="text-lime underline underline-offset-4">
+                reducing RTO on COD orders
+              </Link>
+              .
             </p>
           </div>
           <Link href="/packages/cod-shield" className="btn btn-ghost">

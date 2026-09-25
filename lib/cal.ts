@@ -11,10 +11,10 @@ export const CAL_MODAL_CONFIG = {
   theme: "dark",
 } as const;
 
-type CalApi = (action: string, config?: Record<string, unknown>) => void;
+type CalApi = (...args: unknown[]) => void;
 
 declare global {
   interface Window {
-    Cal?: CalApi & { ns?: Record<string, CalApi>; loaded?: boolean };
+    Cal?: CalApi & { ns?: Record<string, CalApi>; loaded?: boolean; config?: Record<string, unknown> };
   }
 }

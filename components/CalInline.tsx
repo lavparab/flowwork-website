@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CAL_LINK, CAL_MODAL_CONFIG, CAL_NAMESPACE, CAL_URL } from "@/lib/cal";
+import { ensureCal } from "@/lib/cal-client";
 
 /** The booking calendar embedded in the page, with a plain link as fallback. */
 export default function CalInline() {
@@ -11,7 +12,8 @@ export default function CalInline() {
     let tries = 0;
     let fallback: number | undefined;
 
-    // The Cal bootstrap script runs after hydration, so wait for its namespace.
+    ensureCal();
+    // Wait for Cal's namespace to be ready.
     const poll = window.setInterval(() => {
       const ns = window.Cal?.ns?.[CAL_NAMESPACE];
       if (ns) {

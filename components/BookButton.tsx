@@ -1,6 +1,8 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import { CAL_LINK, CAL_MODAL_CONFIG, CAL_NAMESPACE, CAL_URL } from "@/lib/cal";
+import { ensureCal } from "@/lib/cal-client";
 
 /**
  * The CTA is a real <a href> so it still books a call when JS is off, the embed
@@ -18,20 +20,30 @@ export default function BookButton({
     </>
   ),
   className = "btn btn-lime",
+  location = "page",
 }: {
   children?: React.ReactNode;
   className?: string;
+  /** Where the button sits, for analytics (e.g. "nav", "hero", "cta"). */
+  location?: string;
 }) {
   return (
     <a
       href={CAL_URL}
       className={className}
+      // Start loading the embed as soon as someone shows intent.
+      onPointerEnter={ensureCal}
+      onFocus={ensureCal}
+      onTouchStart={ensureCal}
       onClick={(e) => {
+        track("book_audit_click", { location });
+
         // Let cmd/ctrl/shift/middle-click open the booking page in a new tab.
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
 
+        ensureCal();
         const ns = window.Cal?.ns?.[CAL_NAMESPACE];
-        if (!ns) return; // No embed on the page: follow the href.
+        if (!ns) return; // No embed: follow the href.
 
         e.preventDefault();
         ns("modal", { calLink: CAL_LINK, config: CAL_MODAL_CONFIG });
@@ -43,7 +55,7 @@ export default function BookButton({
           if (!document.querySelector("cal-modal-box")) {
             window.location.href = CAL_URL;
           }
-        }, 2500);
+        }, 4000);
       }}
     >
       {children}

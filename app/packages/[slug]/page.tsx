@@ -6,8 +6,10 @@ import FaqThread from "@/components/chat/FaqThread";
 import PhoneDemo from "@/components/chat/PhoneDemo";
 import CtaSection from "@/components/CtaSection";
 import JsonLd from "@/components/JsonLd";
+import { ARTICLES } from "@/lib/articles";
 import { PACKAGE_DEMOS } from "@/lib/chat";
 import { getPackage, includedGroups, PACKAGES } from "@/lib/packages";
+import { breadcrumbLd, ORG_ID, pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -21,11 +23,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pkg = getPackage((await params).slug);
   if (!pkg) return {};
-  return {
-    title: `${pkg.name}: ${pkg.pitch.replace(/\.$/, "")}`,
-    description: `${pkg.summary} Live in ${pkg.liveIn}.`,
-    alternates: { canonical: `/packages/${pkg.slug}` },
-  };
+  return pageMeta({ title: pkg.seoTitle, description: pkg.seoDescription, path: `/packages/${pkg.slug}` });
 }
 
 const DEMO_LABELS: Record<string, string> = {
@@ -45,6 +43,7 @@ export default async function PackagePage({ params }: Props) {
   const groups = includedGroups(pkg);
   const inherited = groups.filter((g) => g.from.slug !== pkg.slug);
   const next = PACKAGES.find((p) => p.tier === pkg.tier + 1);
+  const related = ARTICLES.filter((a) => pkg.related?.includes(a.slug));
 
   return (
     <>
@@ -52,12 +51,28 @@ export default async function PackagePage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "Service",
-          name: `${SITE.name} ${pkg.name}`,
+          name: pkg.name,
+          alternateName: `${SITE.name} ${pkg.name}`,
           description: pkg.summary,
-          provider: { "@type": "Organization", name: SITE.name, url: SITE.url },
-          areaServed: "IN",
+          url: `${SITE.url}/packages/${pkg.slug}`,
+          provider: { "@id": ORG_ID },
+          areaServed: { "@type": "Country", name: SITE.serviceArea },
           serviceType: "WhatsApp automation",
+          audience: { "@type": "BusinessAudience", name: "Indian D2C brands" },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: `${pkg.name} includes`,
+            itemListElement: includedGroups(pkg)
+              .flatMap((g) => g.features)
+              .map((f) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: f.name, description: f.detail } })),
+          },
         }}
+      />
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Packages", path: "/packages" },
+          { name: pkg.name, path: `/packages/${pkg.slug}` },
+        ])}
       />
 
       {/* ------------------------------------------------ hero */}
@@ -73,13 +88,18 @@ export default async function PackagePage({ params }: Props) {
                 {pkg.name}
               </span>
             </nav>
-            <div className="mt-8 flex items-center gap-3">
-              <span className="text-[13px] font-medium tracking-[0.08em] text-lime uppercase">Package 0{pkg.tier} of 03</span>
+            <h1 className="mt-8">
+              <span className="kicker">{pkg.keyword}</span>{" "}
+              <span className="display mt-5 block !text-[clamp(48px,6vw,88px)]">{pkg.name}</span>
+            </h1>
+            <p className="mt-4 flex items-center gap-3 text-[13px] font-medium tracking-[0.08em] text-dim uppercase">
+              Package 0{pkg.tier} of 03
               {pkg.popular && (
-                <span className="rounded-full bg-lime px-2.5 py-0.5 text-[12px] font-semibold text-ink">Most popular</span>
+                <span className="rounded-full bg-lime px-2.5 py-0.5 text-[12px] font-semibold tracking-normal text-ink normal-case">
+                  Most popular
+                </span>
               )}
-            </div>
-            <h1 className="display mt-5 !text-[clamp(48px,6vw,88px)]">{pkg.name}</h1>
+            </p>
             <p className="mt-6 text-[24px] leading-snug font-semibold tracking-[-0.025em]">{pkg.pitch}</p>
             <p className="lede mt-5 max-w-[560px]">{pkg.summary}</p>
 
@@ -89,7 +109,7 @@ export default async function PackagePage({ params }: Props) {
                 <p className="text-[44px] leading-none font-bold tracking-[-0.055em]">{pkg.liveIn}</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <BookButton />
+                <BookButton location={`package-hero:${pkg.slug}`} />
                 <Link href="#included" className="btn btn-ghost">
                   What’s included
                 </Link>
@@ -216,6 +236,27 @@ export default async function PackagePage({ params }: Props) {
               <Link href="/packages" className="link-arrow mt-8">
                 Compare all packages <span aria-hidden>→</span>
               </Link>
+            )}
+            {related.length > 0 && (
+              <div className="mt-10">
+                <p className="text-[13px] font-medium tracking-[0.08em] text-dim uppercase">Related guides</p>
+                <ul className="mt-3 space-y-3">
+                  {related.map((a) => (
+                    <li key={a.slug}>
+                      <Link href={`/resources/${a.slug}`} className="text-[16px] text-muted underline-offset-4 hover:text-lime hover:underline">
+                        {a.title}
+                      </Link>
+                    </li>
+                  ))}
+                  {pkg.slug === "cod-shield" && (
+                    <li>
+                      <Link href="/rto-calculator" className="text-[16px] text-muted underline-offset-4 hover:text-lime hover:underline">
+                        RTO calculator: what COD returns cost you
+                      </Link>
+                    </li>
+                  )}
+                </ul>
+              </div>
             )}
           </div>
           <FaqThread items={pkg.faqs} />

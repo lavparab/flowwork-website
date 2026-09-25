@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import { SITE, whatsappUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Terms of use",
-  description: "The terms that apply when you use the Flowwork website.",
-  alternates: { canonical: "/terms" },
-};
+export const metadata: Metadata = pageMeta({
+  title: "Terms of Use",
+  description:
+    "The terms that apply when you use the Flowwork website, including how we treat examples and estimates, booking an audit, and intellectual property.",
+  path: "/terms",
+});
 
 // Keep this date current whenever the terms change.
 const UPDATED = "25 September 2026";
@@ -14,6 +17,7 @@ const UPDATED = "25 September 2026";
 export default function TermsPage() {
   return (
     <article className="wrap max-w-[820px] pt-16 pb-28 md:pt-24">
+      <JsonLd data={breadcrumbLd([{ name: "Terms of use", path: "/terms" }])} />
       <p className="kicker">Legal</p>
       <h1 className="display mt-7 !text-[clamp(40px,5vw,64px)]">Terms of use</h1>
       <p className="mt-5 text-dim">Last updated {UPDATED}</p>

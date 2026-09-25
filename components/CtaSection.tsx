@@ -1,6 +1,7 @@
-import { SITE, whatsappUrl } from "@/lib/site";
+import { SITE } from "@/lib/site";
 import BookButton from "./BookButton";
 import { Mark } from "./Logo";
+import WhatsAppLink from "./WhatsAppLink";
 
 export default function CtaSection({
   title = (
@@ -20,14 +21,15 @@ export default function CtaSection({
         <h2 className="h2 mx-auto max-w-[900px]">{title}</h2>
         <p className="mx-auto mt-6 max-w-[520px] text-muted">{note}</p>
         <div className="mt-10 flex justify-center">
-          <BookButton />
+          <BookButton location="cta" />
         </div>
-        <a
-          href={whatsappUrl("Hi Flowwork, I'd like to know more.")}
+        <WhatsAppLink
+          location="cta"
+          text="Hi Flowwork, I'd like to know more."
           className="mt-6 inline-block text-[14px] text-dim transition-colors hover:text-text"
         >
           or message us on WhatsApp · {SITE.whatsappDisplay}
-        </a>
+        </WhatsAppLink>
       </div>
     </section>
   );

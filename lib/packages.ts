@@ -10,6 +10,13 @@ export type Package = {
   popular?: boolean;
   /** One line under the name. */
   pitch: string;
+  /** <title> text (the " · Flowwork" suffix is added) and meta description. */
+  seoTitle: string;
+  seoDescription: string;
+  /** Search phrase the package page targets; shown as the label in its H1. */
+  keyword: string;
+  /** Guides on /resources that go deeper on this package's topic. */
+  related?: string[];
   /** Longer description, from the brand copy. */
   summary: string;
   /** Completes the sentence "Best if …" */
@@ -29,6 +36,11 @@ export const PACKAGES: Package[] = [
     tier: 1,
     liveIn: "7 days",
     pitch: "Stops losses from fake and unreachable COD orders.",
+    seoTitle: "COD Shield: WhatsApp COD Confirmation to Cut RTO",
+    keyword: "WhatsApp COD order confirmation",
+    seoDescription:
+      "COD Shield confirms every cash-on-delivery order on WhatsApp and flags fake or unreachable orders before dispatch, so you stop paying for RTO. Live in 7 days.",
+    related: ["whatsapp-cod-confirmation", "reduce-rto-cod-orders"],
     summary:
       "Every cash-on-delivery order is confirmed on WhatsApp the moment it’s placed. Orders nobody confirms are flagged before dispatch, so you stop paying to ship parcels that come back.",
     bestFor: "returned COD parcels are eating your margin.",
@@ -74,6 +86,10 @@ export const PACKAGES: Package[] = [
     liveIn: "2 weeks",
     popular: true,
     pitch: "A complete WhatsApp assistant for your store.",
+    seoTitle: "Growth Engine: WhatsApp Assistant for D2C Stores",
+    keyword: "WhatsApp assistant for D2C stores",
+    seoDescription:
+      "24x7 answers, catalogue sharing, order updates, cart recovery, gifting leads and COD confirmation on WhatsApp for Indian D2C brands. Live in 2 weeks.",
     summary:
       "Everything in COD Shield, plus an assistant that answers questions 24x7, shares your catalogue, sends order updates, recovers abandoned carts, captures gifting enquiries and runs your Diwali campaign.",
     bestFor: "your team spends hours a day replying on WhatsApp.",
@@ -113,6 +129,10 @@ export const PACKAGES: Package[] = [
     tier: 3,
     liveIn: "3–4 weeks",
     pitch: "WhatsApp becomes a sales channel of its own.",
+    seoTitle: "Revenue OS: Sell and Reorder on WhatsApp",
+    keyword: "WhatsApp ordering and reorders",
+    seoDescription:
+      "Sell on WhatsApp: in-chat ordering, automatic reorders, distributor leads, year-round festival campaigns and a monthly revenue dashboard. Live in 3–4 weeks.",
     summary:
       "Everything in Growth Engine, plus in-chat ordering, automatic reorders, distributor lead capture, festival campaigns all year round and a monthly revenue dashboard.",
     bestFor: "you want WhatsApp to become a revenue line of its own.",

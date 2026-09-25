@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "@/components/BookButton";
 import FaqThread from "@/components/chat/FaqThread";
@@ -8,8 +9,20 @@ import JsonLd from "@/components/JsonLd";
 import PackageCards from "@/components/PackageCards";
 import ProcessSteps from "@/components/ProcessSteps";
 import RtoCalculator from "@/components/RtoCalculator";
+import Testimonials from "@/components/Testimonials";
+import { ARTICLES } from "@/lib/articles";
 import { HERO_BRAND, HERO_SCRIPT, HOME_FAQ } from "@/lib/chat";
+import { PACKAGES } from "@/lib/packages";
+import { ORG_ID, pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
+
+export const metadata: Metadata = pageMeta({
+  title: "WhatsApp Automation for Indian D2C Brands · Flowwork",
+  absoluteTitle: true,
+  description:
+    "Flowwork turns WhatsApp into a sales and support channel for Indian D2C brands: COD order confirmation, 24x7 answers, cart recovery and reorder reminders.",
+  path: "/",
+});
 
 export default function Home() {
   return (
@@ -18,13 +31,34 @@ export default function Home() {
         data={{
           "@context": "https://schema.org",
           "@type": "ProfessionalService",
+          "@id": `${SITE.url}/#business`,
           name: SITE.name,
           url: SITE.url,
           description: SITE.description,
-          logo: `${SITE.url}/brand/flowwork-mark-filled.svg`,
-          telephone: SITE.whatsappDisplay,
-          areaServed: "IN",
-          address: { "@type": "PostalAddress", addressLocality: SITE.city, addressCountry: "IN" },
+          image: `${SITE.url}/og-image.png`,
+          logo: `${SITE.url}/brand/flowwork-logo-512.png`,
+          parentOrganization: { "@id": ORG_ID },
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: SITE.city,
+            addressRegion: SITE.region,
+            addressCountry: "IN",
+          },
+          areaServed: { "@type": "Country", name: SITE.serviceArea },
+          knowsAbout: ["WhatsApp automation", "COD order confirmation", "RTO reduction", "Abandoned cart recovery"],
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "WhatsApp automation packages",
+            itemListElement: PACKAGES.map((p) => ({
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: p.name,
+                description: p.summary,
+                url: `${SITE.url}/packages/${p.slug}`,
+              },
+            })),
+          },
         }}
       />
 
@@ -32,20 +66,22 @@ export default function Home() {
       <section className="pt-12 pb-24 md:pt-16">
         <div className="wrap grid items-center gap-16 lg:grid-cols-[1.1fr_.9fr] lg:gap-12">
           <div>
-            <p className="kicker">WhatsApp automation for Indian D2C brands</p>
-            <h1 className="display mt-7">
-              Orders confirmed.
-              <br />
-              Questions answered.
-              <br />
-              <span className="text-lime">Nobody typed a&nbsp;word.</span>
+            <h1>
+              <span className="kicker">WhatsApp automation for Indian D2C brands</span>{" "}
+              <span className="display mt-7 block">
+                Orders confirmed.{" "}
+                <br />
+                Questions answered.{" "}
+                <br />
+                <span className="text-lime">Nobody typed a&nbsp;word.</span>
+              </span>
             </h1>
             <p className="lede mt-7 max-w-[540px]">
               Flowwork turns your WhatsApp Business number into a sales and support channel that runs itself. COD
               orders confirmed before they ship, customers answered at 2 AM, carts recovered, buyers brought back.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <BookButton />
+              <BookButton location="hero" />
               <Link href="/packages" className="btn btn-ghost">
                 See packages
               </Link>
@@ -105,7 +141,7 @@ export default function Home() {
               ships.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-6">
-              <BookButton>
+              <BookButton location="home-calculator">
                 Check it with your real data <span className="arrow">→</span>
               </BookButton>
               <Link href="/rto-calculator" className="link-arrow">
@@ -167,6 +203,34 @@ export default function Home() {
             </Link>
           </div>
           <FaqThread items={HOME_FAQ} />
+        </div>
+      </section>
+
+      <Testimonials />
+
+      {/* ---------------------------------------------------------------- resources */}
+      <section className="section">
+        <div className="wrap">
+          <div className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div>
+              <p className="eyebrow">Resources</p>
+              <h2 className="h2 mt-[18px] max-w-[720px]">Guides for cutting returns and selling on WhatsApp.</h2>
+            </div>
+            <Link href="/resources" className="link-arrow self-start lg:self-auto">
+              All resources <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <ul className="grid gap-4 md:grid-cols-2">
+            {ARTICLES.slice(0, 2).map((a) => (
+              <li key={a.slug}>
+                <Link href={`/resources/${a.slug}`} className="card group flex h-full flex-col p-7 transition-colors hover:border-lime">
+                  <h3 className="text-[22px] leading-tight font-bold tracking-[-0.03em] group-hover:text-lime">{a.title}</h3>
+                  <p className="mt-3 text-[15.5px] text-muted">{a.description}</p>
+                  <span className="mt-auto pt-6 text-[14px] text-dim">{a.readingMinutes} min read →</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
