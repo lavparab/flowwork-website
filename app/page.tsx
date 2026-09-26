@@ -68,7 +68,8 @@ export default function Home() {
           <div>
             <h1>
               <span className="kicker">WhatsApp automation for Indian D2C brands</span>{" "}
-              <span className="display mt-7 block">
+              {/* Capped at 60px so "Nobody typed a word." stays on one line beside the phone. */}
+              <span className="display mt-7 block !text-[clamp(42px,4.5vw,60px)]">
                 Orders confirmed.{" "}
                 <br />
                 Questions answered.{" "}

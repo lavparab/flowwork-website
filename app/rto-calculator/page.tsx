@@ -108,7 +108,7 @@ export default function CalculatorPage() {
       <CtaSection
         title={
           <>
-            Want the real number? <em className="hl not-italic">We’ll find it in 15 minutes.</em>
+            Want the real number? <em className="hl not-italic">We’ll find it in 15&nbsp;minutes.</em>
           </>
         }
       />

@@ -11,6 +11,7 @@ import { PACKAGE_DEMOS } from "@/lib/chat";
 import { getPackage, includedGroups, PACKAGES } from "@/lib/packages";
 import { breadcrumbLd, ORG_ID, pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
+import Range from "@/components/Range";
 
 export const dynamicParams = false;
 
@@ -106,7 +107,7 @@ export default async function PackagePage({ params }: Props) {
             <div className="mt-10 flex flex-wrap items-end gap-x-10 gap-y-6 border-t border-line pt-7">
               <div>
                 <p className="text-[13px] text-dim">Live in</p>
-                <p className="text-[44px] leading-none font-bold tracking-[-0.055em]">{pkg.liveIn}</p>
+                <p className="text-[44px] leading-none font-bold tracking-[-0.055em]"><Range>{pkg.liveIn}</Range></p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <BookButton location={`package-hero:${pkg.slug}`} />
@@ -191,7 +192,7 @@ export default async function PackagePage({ params }: Props) {
           <div className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div>
               <p className="eyebrow">Timeline</p>
-              <h2 className="h2 mt-[18px]">Live in {pkg.liveIn}.</h2>
+              <h2 className="h2 mt-[18px]">Live in <Range>{pkg.liveIn}</Range>.</h2>
             </div>
             <p className="max-w-[380px] text-muted">
               Best if {pkg.bestFor}
@@ -218,14 +219,18 @@ export default async function PackagePage({ params }: Props) {
 
       {/* ------------------------------------------------ faq + next tier */}
       <section className="section">
-        <div className="wrap grid items-start gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
+        {/* Phones: heading, questions, then the upsell. Desktop: questions on the right. */}
+        <div className="wrap grid items-start gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-x-16 lg:gap-y-10">
           <div>
             <p className="eyebrow">Questions</p>
             <h2 className="h2 mt-[18px]">About {pkg.name}.</h2>
+          </div>
+          <FaqThread items={pkg.faqs} className="lg:col-start-2 lg:row-span-2 lg:row-start-1" />
+          <div className="lg:col-start-1 lg:row-start-2">
             {next ? (
-              <Link href={`/packages/${next.slug}`} className="card group mt-10 block p-6 transition-colors hover:border-accent">
+              <Link href={`/packages/${next.slug}`} className="card group block p-6 transition-colors hover:border-accent">
                 <p className="text-[14px] text-dim">Want more?</p>
-                <p className="mt-2 text-[20px] font-semibold tracking-[-0.025em]">
+                <p className="mt-2 text-[20px] leading-snug font-semibold tracking-[-0.025em]">
                   {next.name} adds {next.adds.slice(0, 3).map((f) => f.name.toLowerCase()).join(", ")} and more.
                 </p>
                 <p className="mt-4 text-[15px] text-accent">
@@ -233,7 +238,7 @@ export default async function PackagePage({ params }: Props) {
                 </p>
               </Link>
             ) : (
-              <Link href="/packages" className="link-arrow mt-8">
+              <Link href="/packages" className="link-arrow">
                 Compare all packages <span aria-hidden>→</span>
               </Link>
             )}
@@ -259,14 +264,13 @@ export default async function PackagePage({ params }: Props) {
               </div>
             )}
           </div>
-          <FaqThread items={pkg.faqs} />
         </div>
       </section>
 
       <CtaSection
         title={
           <>
-            {pkg.name}, live in {pkg.liveIn}. <em className="hl not-italic">It starts with 15 minutes.</em>
+            {pkg.name}, live in <Range>{pkg.liveIn}</Range>. <em className="hl not-italic">It starts with 15&nbsp;minutes.</em>
           </>
         }
         note="We look at your numbers first and tell you honestly whether it fits. We quote after the audit."

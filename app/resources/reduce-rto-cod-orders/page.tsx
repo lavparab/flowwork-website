@@ -91,12 +91,9 @@ export default function Page() {
         summary, the amount to pay and the delivery address, and ask them to confirm. WhatsApp works well for this
         because your customers already use it every day and can answer with one tap.
       </p>
-      <ExampleMessage>
+      <ExampleMessage replies={["Confirm order", "Change address", "Cancel order"]}>
         Hi Priya, thanks for ordering from Kaapi Co.! Please confirm your cash-on-delivery order #KC-2841 for ₹1,499 so
         we can ship it today. Delivering to: Kothrud, Pune 411038.
-        <br />
-        <br />
-        [Confirm order] [Change address] [Cancel order]
       </ExampleMessage>
       <p>
         A real customer confirms in seconds. A fake order never replies. Either way, you learn something before you’ve

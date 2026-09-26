@@ -30,8 +30,7 @@ export default function PackagesPage() {
         title={
           <>
             Three packages.{" "}
-            <br />
-            <span className="text-muted">Each one builds on the last.</span>
+            <span className="block text-muted">Each one builds on the last.</span>
           </>
         }
         lede="Start with the problem that costs you most today. Growth Engine includes everything in COD Shield, and Revenue OS includes everything in Growth Engine."
@@ -51,19 +50,29 @@ export default function PackagesPage() {
           <p className="eyebrow">Compare</p>
           <h2 className="h2 mt-[18px] mb-12">Everything, side by side.</h2>
 
-          <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-            <table className="w-full min-w-[640px] border-collapse text-left">
+          {/* Fits a phone without sideways scrolling: narrow tick columns, short headers. */}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-left">
               <caption className="sr-only">What each Flowwork package includes</caption>
               <thead>
                 <tr className="border-b border-text/80">
-                  <th scope="col" className="w-[46%] pb-5 align-bottom text-[13px] font-medium tracking-[0.08em] text-dim uppercase">
+                  <th scope="col" className="pb-5 align-bottom text-[12px] font-medium tracking-[0.08em] text-dim uppercase sm:w-[46%] sm:text-[13px]">
                     Feature
                   </th>
                   {PACKAGES.map((p) => (
-                    <th key={p.slug} scope="col" className={`px-3 pb-5 align-bottom ${p.popular ? "bg-accent/[0.06]" : ""}`}>
+                    <th
+                      key={p.slug}
+                      scope="col"
+                      className={`w-[19%] px-1.5 pb-5 text-center align-bottom sm:w-auto sm:px-3 sm:text-left ${p.popular ? "bg-accent/[0.06]" : ""}`}
+                    >
                       <Link href={`/packages/${p.slug}`} className="block hover:text-accent">
-                        <span className="block text-[18px] font-bold tracking-[-0.03em]">{p.name}</span>
-                        <span className="mt-1 block text-[13px] font-normal text-muted">Live in {p.liveIn}</span>
+                        <span className="block text-[14px] leading-tight font-bold tracking-[-0.02em] sm:text-[18px] sm:tracking-[-0.03em]">
+                          {p.name}
+                        </span>
+                        <span className="mt-1 block text-[12px] font-normal text-muted sm:text-[13px]">
+                          <span className="hidden sm:inline">Live in </span>
+                          {p.liveIn}
+                        </span>
                       </Link>
                     </th>
                   ))}
@@ -78,13 +87,13 @@ export default function PackagesPage() {
                   </tr>
                   {g.rows.map((r) => (
                     <tr key={r.name} className="border-b border-line">
-                      <th scope="row" className="py-4 pr-4 text-[15.5px] font-normal">
+                      <th scope="row" className="py-4 pr-3 text-[14.5px] leading-snug font-normal sm:pr-4 sm:text-[15.5px]">
                         {r.name}
                       </th>
                       {PACKAGES.map((p) => (
-                        <td key={p.slug} className={`px-3 py-4 ${p.popular ? "bg-accent/[0.06]" : ""}`}>
+                        <td key={p.slug} className={`px-1.5 py-4 text-center sm:px-3 sm:text-left ${p.popular ? "bg-accent/[0.06]" : ""}`}>
                           {p.tier >= r.tier ? (
-                            <svg viewBox="0 0 20 20" className="h-5 w-5 text-accent" role="img" aria-label="Included">
+                            <svg viewBox="0 0 20 20" className="inline-block h-5 w-5 align-middle text-accent" role="img" aria-label="Included">
                               <circle cx="10" cy="10" r="10" fill="currentColor" />
                               <path d="M5.8 10.3l2.8 2.8 5.6-6" fill="none" style={{ stroke: "var(--color-canvas)" }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
@@ -139,7 +148,7 @@ export default function PackagesPage() {
       <CtaSection
         title={
           <>
-            Not sure where to start? <em className="hl not-italic">Start with 15 minutes.</em>
+            Not sure where to start? <em className="hl not-italic">Start with 15&nbsp;minutes.</em>
           </>
         }
       />

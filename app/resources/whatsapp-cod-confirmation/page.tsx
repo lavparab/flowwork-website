@@ -73,16 +73,13 @@ export default function Page() {
         <li>The delivery address, so they can spot mistakes</li>
         <li>Clear buttons: Confirm, Change address, Cancel</li>
       </ul>
-      <ExampleMessage>
+      <ExampleMessage replies={["Confirm order", "Change address", "Cancel order"]}>
         Hi Priya, thanks for ordering from Kaapi Co.! Please confirm your cash-on-delivery order:
         <br />
         <br />
         Cold Brew Starter Kit × 1 · ₹1,499
         <br />
         Delivering to: Flat 4B, Lane 7, Kothrud, Pune 411038
-        <br />
-        <br />
-        [Confirm order] [Change address] [Cancel order]
       </ExampleMessage>
 
       <h2>What happens after each reply</h2>

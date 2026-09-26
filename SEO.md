@@ -129,18 +129,19 @@ Checked automatically by crawling the production build. All 15 pages pass.
 | WebP/AVIF | ➖ | No photos on the site. If you add any, use `next/image` and it converts automatically. |
 | Lazy loading | ✅ | The Cal.com embed only loads on hover, focus or tap of a booking button, on /contact, or once the browser is idle. Chat demos start only when on screen. |
 | Minified assets | ✅ | Next.js production build. |
-| Font optimization | ✅ | Self-hosted Inter (48 KB, Latin subset, preloaded, `display: optional`). The mono font isn't preloaded. See note 1. |
+| Font optimization | ✅ | Self-hosted Inter (48 KB, Latin subset, preloaded, `display: block`), plus a 1 KB file with just the ₹ glyph. The mono font isn't preloaded. See note 1. |
 | Caching | ✅ | Static pages are cached at Vercel's edge. Hashed assets are immutable, and `/brand` files are cached for a day. |
 | CDN | ✅ | Vercel's edge network. |
 | Minimize third-party scripts | ✅ | Only Cal.com (on intent) and GA4 (if enabled). |
-| LCP optimized | ✅ | The LCP element is headline text, with no render-blocking CSS. |
+| LCP optimized | ✅ | The LCP element is headline text. LCP is 2.1–2.6 s in Lighthouse's mobile test. |
 | INP optimized | ✅ | Very little JavaScript per page. TBT is 30–60 ms. |
-| CLS minimized | ✅ | 0 on every page tested. |
+| CLS minimized | ✅ | 0 on every page except About (0.025, well under Google's 0.1 limit). |
 
-**1. The font trade-off.** Inter uses `display: "optional"`. It's preloaded, so normal connections get Inter
-straight away. On a very slow first visit the page keeps the fallback font instead of jumping when Inter
-arrives. With `"swap"`, visitors always end up seeing Inter, but article pages shifted (CLS 0.12, over
-Google's 0.1 limit). To prefer the font over layout stability, change `display` in `app/layout.tsx`.
+**1. Fonts.** Inter uses `display: "block"`: text waits for Inter and appears once, already in Inter, so
+every visitor sees the real typeface and nothing jumps. `"optional"` left most first-time visitors on the
+fallback font, and `"swap"` made long pages shift. Inter's own ₹ sits in an 85 KB extended-Latin file, so the
+site loads a 1 KB file with only that glyph instead (`public/fonts/inter-rupee.woff2`). The stylesheet is a
+normal cached file rather than inlined, so the font preloads sit at the top of the page.
 
 ## Content
 

@@ -45,12 +45,16 @@ export default function ArticleLayout({ article, children }: { article: Article;
 
           <h1 className="mt-8 text-[clamp(36px,4.6vw,58px)] leading-[1.04] font-bold tracking-[-0.045em]">{article.title}</h1>
           <p className="lede mt-6">{article.description}</p>
-          <p className="mt-6 flex flex-wrap gap-x-4 gap-y-1 border-b border-line pb-8 text-[14px] text-dim">
-            <span>By {SITE.name}</span>
-            <span>
+          {/* Two fixed lines on phones, one row from sm up: free wrapping broke differently
+              in the fallback font and Inter, and the article jumped when Inter loaded. */}
+          <p className="mt-6 flex flex-col gap-1 border-b border-line pb-8 text-[14px] text-dim sm:flex-row sm:gap-x-4">
+            <span className="flex gap-x-4 whitespace-nowrap">
+              <span>By {SITE.name}</span>
+              <span>{article.readingMinutes} min read</span>
+            </span>
+            <span className="whitespace-nowrap">
               Updated <time dateTime={article.updated}>{formatDate(article.updated)}</time>
             </span>
-            <span>{article.readingMinutes} min read</span>
           </p>
 
           <div className="prose-article mt-10">{children}</div>
@@ -93,11 +97,26 @@ export default function ArticleLayout({ article, children }: { article: Article;
   );
 }
 
-/** A WhatsApp-style example message inside an article. */
-export function ExampleMessage({ children, from = "brand" }: { children: React.ReactNode; from?: "brand" | "customer" }) {
+/** A WhatsApp-style example message inside an article, with optional quick-reply buttons. */
+export function ExampleMessage({
+  children,
+  from = "brand",
+  replies,
+}: {
+  children: React.ReactNode;
+  from?: "brand" | "customer";
+  replies?: string[];
+}) {
   return (
-    <figure className={`not-prose my-3 flex ${from === "brand" ? "justify-start" : "justify-end"}`}>
+    <figure className={`my-3 flex flex-col gap-1 ${from === "brand" ? "items-start" : "items-end"}`}>
       <div className={`msg ${from === "brand" ? "msg-in" : "msg-out"} max-w-[520px] px-4 py-3 text-[15.5px]`}>{children}</div>
+      {replies && (
+        <div className="quick-replies !mt-0 !w-[min(100%,320px)]">
+          {replies.map((r) => (
+            <div key={r}>{r}</div>
+          ))}
+        </div>
+      )}
     </figure>
   );
 }

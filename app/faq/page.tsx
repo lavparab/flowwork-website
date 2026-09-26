@@ -38,8 +38,7 @@ export default function FaqPage() {
         title={
           <>
             Questions founders ask us.{" "}
-            <br />
-            <span className="text-muted">Answered short.</span>
+            <span className="block text-muted">Answered short.</span>
           </>
         }
         lede="Can’t find yours? Ask it on WhatsApp, or bring it to the 15-minute audit."

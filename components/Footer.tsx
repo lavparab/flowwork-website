@@ -8,8 +8,9 @@ export default function Footer() {
   return (
     <footer className="border-t border-line pt-16 pb-24 sm:pb-10">
       <div className="wrap">
-        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
+        {/* Phones: the two link lists sit side by side; brand and contact span the row. */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="col-span-2 md:col-span-1">
             <Link href="/" aria-label="Flowwork home" className="inline-block text-text">
               <Logo className="h-[26px] w-auto" />
             </Link>
@@ -45,7 +46,7 @@ export default function Footer() {
             <FooterLink href="/contact">Contact</FooterLink>
           </FooterCol>
 
-          <FooterCol title="Talk to us">
+          <FooterCol title="Talk to us" className="col-span-2 md:col-span-1">
             <li>
               <WhatsAppLink location="footer" className="text-muted transition-colors hover:text-text">
                 WhatsApp {SITE.whatsappDisplay}
@@ -84,9 +85,9 @@ export default function Footer() {
   );
 }
 
-function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
+function FooterCol({ title, className, children }: { title: string; className?: string; children: React.ReactNode }) {
   return (
-    <div>
+    <div className={className}>
       <h2 className="text-[13px] font-medium tracking-[0.08em] text-dim uppercase">{title}</h2>
       <ul className="mt-5 space-y-3 text-[15px]">{children}</ul>
     </div>

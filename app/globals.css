@@ -3,6 +3,16 @@
 /* The design exploration pages aren't part of the site. */
 @source not "../mockups";
 
+/* Just the ₹ glyph from Inter (1 KB, preloaded in app/layout.tsx). Inter's own ₹ lives in
+   its 85 KB extended-Latin file, which loaded late and made text with prices jump. */
+@font-face {
+  font-family: "Inter Rupee";
+  src: url("/fonts/inter-rupee.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: block;
+  unicode-range: U+20B9;
+}
+
 /* Light mode: html[data-theme="light"], set before first paint by the script in
    app/layout.tsx, or the system setting when JS is off. */
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
@@ -15,7 +25,7 @@
   --color-paper: #f7f7f5;
   --color-gray: #8a8a8a;
 
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter Rupee", var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --breakpoint-xs: 30rem;
@@ -176,6 +186,27 @@ cal-inline {
   }
 }
 
+@layer base {
+  /* Even line lengths in headings, and no one-word last lines in paragraphs. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+  /* Chat bubbles shrink to fit their text, which balancing would leave half empty. */
+  .msg,
+  .msg * {
+    text-wrap: wrap;
+  }
+}
+
 @layer components {
   /* -------------------------------------------------------------- layout */
   .wrap {
@@ -239,6 +270,10 @@ cal-inline {
       padding: 5px 12px 5px 10px;
       font-size: 12.5px;
     }
+  }
+
+  .range-dash {
+    margin-inline: 0.09em;
   }
 
   /* Highlighted words in headlines: lime on dark, a lime marker stroke on light. */

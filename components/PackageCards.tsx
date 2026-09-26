@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPackage, PACKAGES } from "@/lib/packages";
+import Range from "./Range";
 
 /** The three packages side by side, each listing only what it adds to the one before. */
 export default function PackageCards({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3" }) {
@@ -26,7 +27,7 @@ export default function PackageCards({ headingLevel = "h3" }: { headingLevel?: "
               <small className={`mb-2 block text-[13px] font-medium tracking-normal ${pop ? "text-[#2d3a1c]" : "text-dim"}`}>
                 Live in
               </small>
-              {p.liveIn}
+              <Range>{p.liveIn}</Range>
             </p>
             <p className={`mt-5 text-[16px] sm:min-h-[48px] ${pop ? "text-[#2d3a1c]" : "text-muted"}`}>{p.pitch}</p>
 

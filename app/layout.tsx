@@ -10,12 +10,13 @@ import { PHONE_E164, SITE, SOCIAL_LINKS } from "@/lib/site";
 import { THEME_COLORS, THEME_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
-// "optional": Inter is preloaded and used if it's ready at first paint; if it isn't,
-// the page keeps the metric-matched fallback instead of reflowing when Inter arrives.
+// "block": text waits for Inter (48 KB, preloaded) and appears once, already in Inter.
+// "optional" left most first-time visitors on the fallback font, and "swap" made long
+// pages jump when Inter replaced the fallback.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "optional",
+  display: "block",
 });
 
 // Only used for a few small labels, so don't preload it on every page.
@@ -104,6 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en-IN" className={`${inter.variable} ${plexMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <link rel="preload" href="/fonts/inter-rupee.woff2" as="font" type="font/woff2" crossOrigin="" />
       </head>
       <body>
         <JsonLd data={siteGraph} />

@@ -11,8 +11,8 @@ const SECURITY_HEADERS = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // The stylesheet is small, so inline it and skip a render-blocking request.
-  experimental: { inlineCss: true },
+  // Not inlining the stylesheet: inlined, it pushed the font preloads ~50 KB down the
+  // page, so Inter arrived late and long pages jumped when it did.
 
   async redirects() {
     return [

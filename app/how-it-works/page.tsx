@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import { PROCESS } from "@/components/ProcessSteps";
 import { PACKAGES } from "@/lib/packages";
 import { breadcrumbLd, pageMeta } from "@/lib/seo";
+import Range from "@/components/Range";
 
 export const metadata: Metadata = pageMeta({
   title: "How WhatsApp Automation Works for D2C Brands",
@@ -106,7 +107,7 @@ export default function HowItWorksPage() {
             {PACKAGES.map((p) => (
               <Link key={p.slug} href={`/packages/${p.slug}`} className="card group p-7 transition-colors hover:border-accent">
                 <p className="text-[15px] text-muted">{p.name}</p>
-                <p className="mt-3 text-[48px] leading-none font-bold tracking-[-0.06em]">{p.liveIn}</p>
+                <p className="mt-3 text-[48px] leading-none font-bold tracking-[-0.06em]"><Range>{p.liveIn}</Range></p>
                 <ol className="mt-7 space-y-2 border-t border-line pt-5">
                   {p.phases.map((ph) => (
                     <li key={ph.title} className="flex justify-between gap-4 text-[14.5px]">

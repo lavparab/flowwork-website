@@ -25,7 +25,7 @@ export default function ProcessSteps() {
           <span className="grid h-9 w-9 place-items-center rounded-full border border-line text-[13px] text-accent tabular-nums">
             0{i + 1}
           </span>
-          <h3 className="mt-10 text-[21px] font-semibold tracking-[-0.03em]">{s.title}</h3>
+          <h3 className="mt-5 text-[21px] sm:mt-10 font-semibold tracking-[-0.03em]">{s.title}</h3>
           <p className="mt-2 text-[15px] text-muted">{s.detail}</p>
         </li>
       ))}
