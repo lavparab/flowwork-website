@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/" aria-label="Flowwork home" className="inline-block text-paper">
+            <Link href="/" aria-label="Flowwork home" className="inline-block text-text">
               <Logo className="h-[26px] w-auto" />
             </Link>
             <p className="mt-5 max-w-[300px] text-[15px] text-muted">{SITE.tagline}</p>
@@ -18,7 +18,7 @@ export default function Footer() {
               <ul className="mt-6 flex flex-wrap gap-4 text-[14px]">
                 {SOCIAL_LINKS.map(([name, url]) => (
                   <li key={name}>
-                    <a href={url} target="_blank" rel="noopener me" className="text-muted transition-colors hover:text-lime">
+                    <a href={url} target="_blank" rel="noopener me" className="text-muted transition-colors hover:text-accent">
                       {name}
                     </a>
                   </li>

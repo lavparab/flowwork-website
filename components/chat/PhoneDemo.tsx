@@ -128,8 +128,8 @@ export default function PhoneDemo({
               <i className="ml-1 block h-[11px] w-[22px] rounded-[3px] bg-text" />
             </span>
           </div>
-          <div className="flex items-center gap-2.5 border-b border-[#1a1a1a] bg-[#111] px-3.5 pt-2.5 pb-3">
-            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px] text-lime" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+          <div className="flex items-center gap-2.5 border-b border-bubble bg-s1 px-3.5 pt-2.5 pb-3">
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px] text-accent" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
               <path d="M15 5l-7 7 7 7" />
             </svg>
             <ChatAvatar initial={initial} />
@@ -141,7 +141,7 @@ export default function PhoneDemo({
             </div>
           </div>
           <div
-            className={`chat-anim dot-bg flex flex-1 flex-col justify-end gap-1.5 overflow-hidden bg-[#0d0d0d] px-3 pt-3 pb-2.5 transition-opacity duration-500 ${
+            className={`chat-anim dot-bg flex flex-1 flex-col justify-end gap-1.5 overflow-hidden bg-screen px-3 pt-3 pb-2.5 transition-opacity duration-500 ${
               fading ? "opacity-0" : "opacity-100"
             }`}
           >
@@ -156,8 +156,8 @@ export default function PhoneDemo({
               </div>
             )}
           </div>
-          <div className="flex items-center gap-2 bg-[#0d0d0d] px-2.5 pt-2 pb-[26px]">
-            <div className="flex h-[38px] flex-1 items-center rounded-[20px] bg-[#1a1a1a] px-4 text-[14px] text-dim">
+          <div className="flex items-center gap-2 bg-screen px-2.5 pt-2 pb-[26px]">
+            <div className="flex h-[38px] flex-1 items-center rounded-[20px] bg-bubble px-4 text-[14px] text-dim">
               Message
             </div>
             <div className="grid h-[38px] w-[38px] place-items-center rounded-full bg-lime">

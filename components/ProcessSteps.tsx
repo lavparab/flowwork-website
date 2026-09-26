@@ -21,8 +21,8 @@ export default function ProcessSteps() {
   return (
     <ol className="grid gap-px overflow-hidden rounded-[24px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
       {PROCESS.map((s, i) => (
-        <li key={s.title} className="flex flex-col bg-ink p-7">
-          <span className="grid h-9 w-9 place-items-center rounded-full border border-line text-[13px] text-lime tabular-nums">
+        <li key={s.title} className="flex flex-col bg-canvas p-7">
+          <span className="grid h-9 w-9 place-items-center rounded-full border border-line text-[13px] text-accent tabular-nums">
             0{i + 1}
           </span>
           <h3 className="mt-10 text-[21px] font-semibold tracking-[-0.03em]">{s.title}</h3>

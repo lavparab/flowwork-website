@@ -60,8 +60,8 @@ export default function PackagesPage() {
                     Feature
                   </th>
                   {PACKAGES.map((p) => (
-                    <th key={p.slug} scope="col" className={`px-3 pb-5 align-bottom ${p.popular ? "bg-lime/[0.06]" : ""}`}>
-                      <Link href={`/packages/${p.slug}`} className="block hover:text-lime">
+                    <th key={p.slug} scope="col" className={`px-3 pb-5 align-bottom ${p.popular ? "bg-accent/[0.06]" : ""}`}>
+                      <Link href={`/packages/${p.slug}`} className="block hover:text-accent">
                         <span className="block text-[18px] font-bold tracking-[-0.03em]">{p.name}</span>
                         <span className="mt-1 block text-[13px] font-normal text-muted">Live in {p.liveIn}</span>
                       </Link>
@@ -72,7 +72,7 @@ export default function PackagesPage() {
               {COMPARISON.map((g) => (
                 <tbody key={g.group}>
                   <tr>
-                    <th colSpan={4} scope="colgroup" className="pt-9 pb-3 text-[13px] font-medium tracking-[0.08em] text-lime uppercase">
+                    <th colSpan={4} scope="colgroup" className="pt-9 pb-3 text-[13px] font-medium tracking-[0.08em] text-accent uppercase">
                       {g.group}
                     </th>
                   </tr>
@@ -82,11 +82,11 @@ export default function PackagesPage() {
                         {r.name}
                       </th>
                       {PACKAGES.map((p) => (
-                        <td key={p.slug} className={`px-3 py-4 ${p.popular ? "bg-lime/[0.06]" : ""}`}>
+                        <td key={p.slug} className={`px-3 py-4 ${p.popular ? "bg-accent/[0.06]" : ""}`}>
                           {p.tier >= r.tier ? (
-                            <svg viewBox="0 0 20 20" className="h-5 w-5 text-lime" role="img" aria-label="Included">
+                            <svg viewBox="0 0 20 20" className="h-5 w-5 text-accent" role="img" aria-label="Included">
                               <circle cx="10" cy="10" r="10" fill="currentColor" />
-                              <path d="M5.8 10.3l2.8 2.8 5.6-6" fill="none" stroke="#0A0A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M5.8 10.3l2.8 2.8 5.6-6" fill="none" style={{ stroke: "var(--color-canvas)" }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                           ) : (
                             <span className="text-dim" aria-label="Not included">
@@ -116,11 +116,11 @@ export default function PackagesPage() {
                 <Link
                   key={x.slug}
                   href={`/packages/${x.slug}`}
-                  className="card group flex flex-col p-7 transition-colors hover:border-lime"
+                  className="card group flex flex-col p-7 transition-colors hover:border-accent"
                 >
                   <p className="text-[22px] leading-snug font-semibold tracking-[-0.03em]">“{x.pain}”</p>
                   <p className="mt-10 text-[15px] text-muted">
-                    Start with <span className="text-lime">{p.name}</span>
+                    Start with <span className="text-accent">{p.name}</span>
                   </p>
                   <span className="mt-1 text-[15px] text-dim transition-colors group-hover:text-text">
                     Live in {p.liveIn} <span aria-hidden>→</span>
@@ -139,7 +139,7 @@ export default function PackagesPage() {
       <CtaSection
         title={
           <>
-            Not sure where to start? <em className="text-lime not-italic">Start with 15 minutes.</em>
+            Not sure where to start? <em className="hl not-italic">Start with 15 minutes.</em>
           </>
         }
       />

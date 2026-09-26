@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/lib/site";
 import BookButton from "./BookButton";
 import { Logo } from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -33,12 +34,15 @@ export default function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b bg-ink/80 backdrop-blur-md transition-colors duration-300 ${
+      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
         scrolled || open ? "border-line" : "border-transparent"
       }`}
     >
+      {/* The blur lives on its own layer: backdrop-filter on the header itself would
+          trap the fixed mobile menu inside the 72px bar. */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-canvas/80 backdrop-blur-md" />
       <div className="wrap flex h-[72px] items-center justify-between gap-6">
-        <Link href="/" aria-label="Flowwork home" className="shrink-0 text-paper">
+        <Link href="/" aria-label="Flowwork home" className="shrink-0 text-text">
           <Logo className="h-[26px] w-auto" />
         </Link>
 
@@ -55,7 +59,8 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <ThemeToggle />
           <BookButton location="nav" className="btn btn-lime btn-sm hidden sm:inline-flex">
             Book a 15-min audit
           </BookButton>
@@ -86,7 +91,7 @@ export default function Nav() {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="fixed inset-x-0 top-[72px] bottom-0 overflow-y-auto bg-ink lg:hidden"
+        className="fixed inset-x-0 top-[72px] bottom-0 overflow-y-auto bg-canvas lg:hidden"
       >
         <nav aria-label="Mobile" className="wrap flex flex-col pt-6 pb-10">
           {[{ href: "/", label: "Home" }, ...NAV_LINKS, { href: "/faq", label: "FAQ" }, { href: "/contact", label: "Contact" }].map((l) => (
@@ -94,7 +99,7 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               className={`border-b border-line py-5 text-[28px] font-semibold tracking-[-0.03em] ${
-                pathname === l.href ? "text-lime" : "text-text"
+                pathname === l.href ? "text-accent" : "text-text"
               }`}
             >
               {l.label}

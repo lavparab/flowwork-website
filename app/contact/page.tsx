@@ -50,7 +50,7 @@ export default function ContactPage() {
             <dl className="mt-10 border-t border-line">
               {AGENDA.map(([t, d]) => (
                 <div key={d} className="flex gap-6 border-b border-line py-4">
-                  <dt className="w-14 shrink-0 font-mono text-[13px] text-lime">{t}</dt>
+                  <dt className="w-14 shrink-0 font-mono text-[13px] text-accent">{t}</dt>
                   <dd className="text-[15.5px] text-muted">{d}</dd>
                 </div>
               ))}

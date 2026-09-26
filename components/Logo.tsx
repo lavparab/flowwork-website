@@ -32,11 +32,15 @@ export function Mark({ variant = "outline", className, title }: MarkProps) {
 const SCALE = 64 / WORDMARK_ASCENT;
 const LOCKUP_WIDTH = 124 + WORDMARK_WIDTH * SCALE;
 
-/** Lime mark + wordmark in currentColor. Size it with a height class, e.g. "h-7". */
+/**
+ * Lime mark + wordmark in currentColor. Size it with a height class, e.g. "h-7".
+ * The petals are see-through on dark and black on light (--logo-petals).
+ */
 export function Logo({ className }: { className?: string }) {
   return (
     <svg viewBox={`0 0 ${LOCKUP_WIDTH.toFixed(1)} 100`} className={className} role="img" aria-label="Flowwork">
       <path fill="#C1FF72" fillRule="evenodd" d={MARK_OUTLINE} />
+      <path style={{ fill: "var(--logo-petals)" }} d={MARK_PETALS} />
       <path fill="currentColor" transform={`translate(124 82) scale(${SCALE.toFixed(6)})`} d={WORDMARK} />
     </svg>
   );

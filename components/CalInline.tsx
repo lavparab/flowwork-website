@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { CAL_LINK, CAL_MODAL_CONFIG, CAL_NAMESPACE, CAL_URL } from "@/lib/cal";
 import { ensureCal } from "@/lib/cal-client";
+import { currentTheme } from "@/lib/theme";
 
 /** The booking calendar embedded in the page, with a plain link as fallback. */
 export default function CalInline() {
@@ -18,7 +19,7 @@ export default function CalInline() {
       const ns = window.Cal?.ns?.[CAL_NAMESPACE];
       if (ns) {
         window.clearInterval(poll);
-        ns("inline", { elementOrSelector: "#cal-inline", calLink: CAL_LINK, config: CAL_MODAL_CONFIG });
+        ns("inline", { elementOrSelector: "#cal-inline", calLink: CAL_LINK, config: { ...CAL_MODAL_CONFIG, theme: currentTheme() } });
         // If the embed never renders (blocked script, offline), show the link instead.
         fallback = window.setTimeout(() => {
           if (!document.querySelector("#cal-inline iframe")) setFailed(true);

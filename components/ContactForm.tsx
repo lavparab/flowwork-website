@@ -66,8 +66,8 @@ export default function ContactForm() {
             return (
               <label
                 key={n}
-                className={`cursor-pointer rounded-full border px-3.5 py-2 text-[14px] transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-lime ${
-                  on ? "border-lime bg-lime text-ink" : "border-line text-muted hover:border-[#444]"
+                className={`cursor-pointer rounded-full border px-3.5 py-2 text-[14px] transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-accent ${
+                  on ? "border-lime bg-lime text-ink" : "border-line text-muted hover:border-line-hover"
                 }`}
               >
                 <input

@@ -51,7 +51,7 @@ export default function FaqThread({ items, className = "" }: { items: { q: strin
               className={`msg msg-in flex max-w-[92%] gap-3 px-[15px] pt-[11px] pb-[10px] text-[16px] sm:max-w-[80%] ${a.className}`}
               style={a.style}
             >
-              <Mark className="mt-[3px] h-[18px] w-[18px] shrink-0 text-lime" />
+              <Mark className="mt-[3px] h-[18px] w-[18px] shrink-0 text-accent" />
               <p>{it.a}</p>
             </div>
           </div>

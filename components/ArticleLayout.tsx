@@ -79,7 +79,7 @@ export default function ArticleLayout({ article, children }: { article: Article;
                 {others.map((a) => (
                   <li key={a.slug} className="border-b border-line">
                     <Link href={`/resources/${a.slug}`} className="group flex items-baseline justify-between gap-6 py-5">
-                      <span className="text-[19px] font-semibold tracking-[-0.02em] group-hover:text-lime">{a.title}</span>
+                      <span className="text-[19px] font-semibold tracking-[-0.02em] group-hover:text-accent">{a.title}</span>
                       <span className="shrink-0 text-[14px] text-dim">{a.readingMinutes} min</span>
                     </Link>
                   </li>

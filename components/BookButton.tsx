@@ -3,6 +3,7 @@
 import { track } from "@/lib/analytics";
 import { CAL_LINK, CAL_MODAL_CONFIG, CAL_NAMESPACE, CAL_URL } from "@/lib/cal";
 import { ensureCal } from "@/lib/cal-client";
+import { currentTheme } from "@/lib/theme";
 
 /**
  * The CTA is a real <a href> so it still books a call when JS is off, the embed
@@ -46,7 +47,7 @@ export default function BookButton({
         if (!ns) return; // No embed: follow the href.
 
         e.preventDefault();
-        ns("modal", { calLink: CAL_LINK, config: CAL_MODAL_CONFIG });
+        ns("modal", { calLink: CAL_LINK, config: { ...CAL_MODAL_CONFIG, theme: currentTheme() } });
 
         // Calls made before embed.js finishes are queued by Cal's init shim. If
         // the script is blocked or errors, that queue never drains, so fall

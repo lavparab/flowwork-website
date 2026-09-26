@@ -11,7 +11,7 @@ export default function Testimonials() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {TESTIMONIALS.map((t) => (
             <figure key={t.name} className="card flex flex-col p-7">
-              {t.result && <p className="text-[15px] font-semibold text-lime">{t.result}</p>}
+              {t.result && <p className="text-[15px] font-semibold text-accent">{t.result}</p>}
               <blockquote className="mt-4 text-[17px] leading-relaxed">“{t.quote}”</blockquote>
               <figcaption className="mt-auto pt-6 text-[14px] text-muted">
                 <span className="block font-semibold text-text">{t.name}</span>

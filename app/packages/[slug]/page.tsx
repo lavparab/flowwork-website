@@ -139,13 +139,13 @@ export default async function PackagePage({ params }: Props) {
 
           <div className="grid gap-px overflow-hidden rounded-[24px] border border-line bg-line md:grid-cols-2">
             {pkg.adds.map((f, i) => (
-              <div key={f.name} className="bg-ink p-7 sm:p-8">
-                <span className="text-[13px] text-lime tabular-nums">0{i + 1}</span>
+              <div key={f.name} className="bg-canvas p-7 sm:p-8">
+                <span className="text-[13px] text-accent tabular-nums">0{i + 1}</span>
                 <h3 className="mt-6 text-[22px] font-semibold tracking-[-0.03em]">{f.name}</h3>
                 <p className="mt-2 max-w-[460px] text-[15.5px] text-muted">{f.detail}</p>
               </div>
             ))}
-            {pkg.adds.length % 2 === 1 && <div className="hidden bg-ink md:block" />}
+            {pkg.adds.length % 2 === 1 && <div className="hidden bg-canvas md:block" />}
           </div>
 
           {inherited.length > 0 && (
@@ -154,7 +154,7 @@ export default async function PackagePage({ params }: Props) {
                 <div key={g.from.slug} className="card p-7">
                   <p className="text-[14px] text-dim">
                     Included from{" "}
-                    <Link href={`/packages/${g.from.slug}`} className="text-lime hover:underline">
+                    <Link href={`/packages/${g.from.slug}`} className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent">
                       {g.from.name}
                     </Link>
                   </p>
@@ -198,13 +198,13 @@ export default async function PackagePage({ params }: Props) {
             </p>
           </div>
           <ol className="relative grid gap-10 md:grid-cols-4 md:gap-6">
-            <span aria-hidden className="absolute top-[7px] right-0 left-0 hidden h-px bg-gradient-to-r from-line via-line to-lime md:block" />
+            <span aria-hidden className="absolute top-[7px] right-0 left-0 hidden h-px bg-gradient-to-r from-line via-line to-accent md:block" />
             {pkg.phases.map((ph, i) => (
               <li key={ph.title} className="relative pl-8 md:pt-10 md:pl-0">
                 <span
                   aria-hidden
                   className={`absolute top-[2px] left-0 h-[11px] w-[11px] rounded-full md:top-[2px] ${
-                    i === pkg.phases.length - 1 ? "bg-lime" : "border border-muted bg-ink"
+                    i === pkg.phases.length - 1 ? "bg-accent" : "border border-muted bg-canvas"
                   }`}
                 />
                 <p className="text-[13px] text-dim">{ph.when}</p>
@@ -223,12 +223,12 @@ export default async function PackagePage({ params }: Props) {
             <p className="eyebrow">Questions</p>
             <h2 className="h2 mt-[18px]">About {pkg.name}.</h2>
             {next ? (
-              <Link href={`/packages/${next.slug}`} className="card group mt-10 block p-6 transition-colors hover:border-lime">
+              <Link href={`/packages/${next.slug}`} className="card group mt-10 block p-6 transition-colors hover:border-accent">
                 <p className="text-[14px] text-dim">Want more?</p>
                 <p className="mt-2 text-[20px] font-semibold tracking-[-0.025em]">
                   {next.name} adds {next.adds.slice(0, 3).map((f) => f.name.toLowerCase()).join(", ")} and more.
                 </p>
-                <p className="mt-4 text-[15px] text-lime">
+                <p className="mt-4 text-[15px] text-accent">
                   Explore {next.name} <span aria-hidden>→</span>
                 </p>
               </Link>
@@ -243,14 +243,14 @@ export default async function PackagePage({ params }: Props) {
                 <ul className="mt-3 space-y-3">
                   {related.map((a) => (
                     <li key={a.slug}>
-                      <Link href={`/resources/${a.slug}`} className="text-[16px] text-muted underline-offset-4 hover:text-lime hover:underline">
+                      <Link href={`/resources/${a.slug}`} className="text-[16px] text-muted underline-offset-4 hover:text-accent hover:underline">
                         {a.title}
                       </Link>
                     </li>
                   ))}
                   {pkg.slug === "cod-shield" && (
                     <li>
-                      <Link href="/rto-calculator" className="text-[16px] text-muted underline-offset-4 hover:text-lime hover:underline">
+                      <Link href="/rto-calculator" className="text-[16px] text-muted underline-offset-4 hover:text-accent hover:underline">
                         RTO calculator: what COD returns cost you
                       </Link>
                     </li>
@@ -266,7 +266,7 @@ export default async function PackagePage({ params }: Props) {
       <CtaSection
         title={
           <>
-            {pkg.name}, live in {pkg.liveIn}. <em className="text-lime not-italic">It starts with 15 minutes.</em>
+            {pkg.name}, live in {pkg.liveIn}. <em className="hl not-italic">It starts with 15 minutes.</em>
           </>
         }
         note="We look at your numbers first and tell you honestly whether it fits. We quote after the audit."

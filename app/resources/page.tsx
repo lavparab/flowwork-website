@@ -34,12 +34,12 @@ export default function ResourcesPage() {
               <li key={a.slug}>
                 <Link
                   href={`/resources/${a.slug}`}
-                  className="card group flex h-full flex-col p-7 transition-colors hover:border-lime sm:p-8"
+                  className="card group flex h-full flex-col p-7 transition-colors hover:border-accent sm:p-8"
                 >
                   <p className="text-[13px] text-dim">
                     <time dateTime={a.updated}>{formatDate(a.updated)}</time> · {a.readingMinutes} min read
                   </p>
-                  <h2 className="mt-5 text-[24px] leading-tight font-bold tracking-[-0.035em] group-hover:text-lime">
+                  <h2 className="mt-5 text-[24px] leading-tight font-bold tracking-[-0.035em] group-hover:text-accent">
                     {a.title}
                   </h2>
                   <p className="mt-3 text-[15.5px] text-muted">{a.description}</p>
@@ -52,14 +52,14 @@ export default function ResourcesPage() {
           </ul>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <Link href="/rto-calculator" className="card group p-7 transition-colors hover:border-lime">
+            <Link href="/rto-calculator" className="card group p-7 transition-colors hover:border-accent">
               <p className="eyebrow">Tool</p>
               <h2 className="mt-4 text-[22px] font-bold tracking-[-0.03em]">RTO calculator</h2>
               <p className="mt-2 text-[15.5px] text-muted">
                 Work out what returned COD parcels cost you every month.
               </p>
             </Link>
-            <Link href="/faq" className="card group p-7 transition-colors hover:border-lime">
+            <Link href="/faq" className="card group p-7 transition-colors hover:border-accent">
               <p className="eyebrow">Answers</p>
               <h2 className="mt-4 text-[22px] font-bold tracking-[-0.03em]">FAQ</h2>
               <p className="mt-2 text-[15.5px] text-muted">

@@ -91,8 +91,8 @@ export default function AboutPage() {
           <h2 className="h2 mt-[18px] mb-12 max-w-[760px]">Four rules behind everything we build.</h2>
           <div className="grid gap-px overflow-hidden rounded-[24px] border border-line bg-line md:grid-cols-2">
             {BELIEFS.map((b, i) => (
-              <div key={b.title} className="bg-ink p-7 sm:p-9">
-                <span className="text-[13px] text-lime tabular-nums">0{i + 1}</span>
+              <div key={b.title} className="bg-canvas p-7 sm:p-9">
+                <span className="text-[13px] text-accent tabular-nums">0{i + 1}</span>
                 <h3 className="mt-6 text-[24px] font-bold tracking-[-0.035em]">{b.title}</h3>
                 <p className="mt-3 max-w-[460px] text-muted">{b.body}</p>
               </div>
@@ -111,7 +111,7 @@ export default function AboutPage() {
                 <li key={p.slug} className="border-b border-line">
                   <Link href={`/packages/${p.slug}`} className="group flex items-baseline justify-between gap-6 py-5">
                     <span>
-                      <span className="block text-[20px] font-semibold tracking-[-0.025em] group-hover:text-lime">{p.name}</span>
+                      <span className="block text-[20px] font-semibold tracking-[-0.025em] group-hover:text-accent">{p.name}</span>
                       <span className="mt-1 block text-[15px] text-muted">{p.pitch}</span>
                     </span>
                     <span className="shrink-0 text-[14px] text-dim">Live in {p.liveIn}</span>
@@ -136,13 +136,13 @@ export default function AboutPage() {
               </Row>
               <Row label="Serving">D2C brands across {SITE.serviceArea}</Row>
               <Row label="WhatsApp">
-                <WhatsAppLink location="about" className="text-lime hover:underline">
+                <WhatsAppLink location="about" className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent">
                   {SITE.whatsappDisplay}
                 </WhatsAppLink>
               </Row>
               {SITE.email && (
                 <Row label="Email">
-                  <a href={`mailto:${SITE.email}`} className="text-lime hover:underline">
+                  <a href={`mailto:${SITE.email}`} className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent">
                     {SITE.email}
                   </a>
                 </Row>

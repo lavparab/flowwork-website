@@ -27,6 +27,7 @@ Opens on http://localhost:3000.
 | Client testimonials (the section stays hidden while this is empty) | [`lib/proof.ts`](lib/proof.ts) |
 | Page titles, descriptions, canonical and share tags | `pageMeta()` in [`lib/seo.ts`](lib/seo.ts), called at the top of each page |
 | Colours, fonts, chat bubble and calculator styles | [`app/globals.css`](app/globals.css) |
+| Light and dark mode colours (the two light blocks must match) | theme tokens at the top of [`app/globals.css`](app/globals.css) |
 | Privacy policy and terms (update the date at the top when you change them) | [`app/privacy/page.tsx`](app/privacy/page.tsx), [`app/terms/page.tsx`](app/terms/page.tsx) |
 
 Packages stack: Growth Engine includes COD Shield, and Revenue OS includes Growth
@@ -34,6 +35,13 @@ Engine. The comparison table and "Everything in …, plus" lines are worked out 
 the `tier` numbers in `lib/packages.ts`, so you only list what each tier adds.
 
 No prices appear anywhere on the site. The FAQ says quotes come after the audit.
+
+The site follows the visitor's system light/dark setting until they use the sun/moon
+button in the nav; their choice is then remembered in the browser. In light mode,
+lime is only used as a fill (chat bubbles, the popular package, headline highlights):
+primary buttons turn black with lime text, and green text uses a darker `accent`
+shade, because plain lime is unreadable on a light background. Use `text-accent`
+rather than `text-lime` for green text, and `hl` for highlighted headline words.
 
 ## Pages
 

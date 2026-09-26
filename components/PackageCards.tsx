@@ -53,7 +53,7 @@ export default function PackageCards({ headingLevel = "h3" }: { headingLevel?: "
             <p className={`mt-6 mb-6 text-[14px] ${pop ? "text-[#2d3a1c]" : "text-dim"}`}>Best if {p.bestFor}</p>
             <Link
               href={`/packages/${p.slug}`}
-              className={`btn mt-auto ${pop ? "btn-ink" : "btn-ghost hover:!border-lime hover:text-lime"}`}
+              className={`btn mt-auto ${pop ? "btn-ink" : "btn-ghost hover:!border-accent hover:text-accent"}`}
             >
               Explore {p.name} <span className="arrow">→</span>
             </Link>

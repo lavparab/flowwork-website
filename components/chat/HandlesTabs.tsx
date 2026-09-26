@@ -32,7 +32,7 @@ export default function HandlesTabs() {
               }}
               className="group grid w-full grid-cols-[48px_1fr] items-baseline border-b border-line py-[22px] text-left"
             >
-              <span className={`text-[13px] tabular-nums ${selected ? "text-lime" : "text-dim"}`}>0{i + 1}</span>
+              <span className={`text-[13px] tabular-nums ${selected ? "text-accent" : "text-dim"}`}>0{i + 1}</span>
               <span
                 className={`text-[22px] font-semibold tracking-[-0.03em] transition-colors ${
                   selected ? "text-text" : "text-dim group-hover:text-muted"
@@ -48,7 +48,7 @@ export default function HandlesTabs() {
                 <span className="overflow-hidden">
                   {h.blurb}
                   <span className="mt-2 block text-[13px] text-dim">
-                    Included in <span className="text-lime">{h.pkg}</span>
+                    Included in <span className="text-accent">{h.pkg}</span>
                     {h.pkg !== "Revenue OS" && " and up"}
                   </span>
                 </span>
@@ -70,7 +70,7 @@ export default function HandlesTabs() {
             <div className="text-[15px] leading-tight font-semibold">{current.convo.brand}</div>
             <div className="text-[12px] text-dim">Example brand</div>
           </div>
-          <span className="ml-auto rounded-full border border-[#2f3a22] px-2.5 py-1 text-[12px] text-lime">
+          <span className="ml-auto rounded-full border border-accent/25 px-2.5 py-1 text-[12px] text-accent">
             Automated
           </span>
         </div>

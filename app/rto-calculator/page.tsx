@@ -43,7 +43,7 @@ export default function CalculatorPage() {
             <h1>
               <span className="kicker">RTO calculator for COD orders</span>{" "}
               <span className="display mt-7 block !text-[clamp(42px,5.2vw,76px)]">
-                What are COD returns <span className="text-lime">really</span> costing you?
+                What are COD returns <span className="hl">really</span> costing you?
               </span>
             </h1>
             <p className="lede mt-7 max-w-[540px]">
@@ -93,7 +93,7 @@ export default function CalculatorPage() {
             <p className="mt-6 max-w-[600px] text-muted">
               Orders nobody confirms are flagged before dispatch, so you stop paying to ship parcels that come back.
               Live in 7 days, on your own WhatsApp Business number. Prefer to do it yourself? Read our guide to{" "}
-              <Link href="/resources/reduce-rto-cod-orders" className="text-lime underline underline-offset-4">
+              <Link href="/resources/reduce-rto-cod-orders" className="text-accent underline underline-offset-4">
                 reducing RTO on COD orders
               </Link>
               .
@@ -108,7 +108,7 @@ export default function CalculatorPage() {
       <CtaSection
         title={
           <>
-            Want the real number? <em className="text-lime not-italic">We’ll find it in 15 minutes.</em>
+            Want the real number? <em className="hl not-italic">We’ll find it in 15 minutes.</em>
           </>
         }
       />

@@ -73,7 +73,7 @@ export default function Home() {
                 <br />
                 Questions answered.{" "}
                 <br />
-                <span className="text-lime">Nobody typed a&nbsp;word.</span>
+                <span className="hl">Nobody typed a&nbsp;word.</span>
               </span>
             </h1>
             <p className="lede mt-7 max-w-[540px]">
@@ -223,8 +223,8 @@ export default function Home() {
           <ul className="grid gap-4 md:grid-cols-2">
             {ARTICLES.slice(0, 2).map((a) => (
               <li key={a.slug}>
-                <Link href={`/resources/${a.slug}`} className="card group flex h-full flex-col p-7 transition-colors hover:border-lime">
-                  <h3 className="text-[22px] leading-tight font-bold tracking-[-0.03em] group-hover:text-lime">{a.title}</h3>
+                <Link href={`/resources/${a.slug}`} className="card group flex h-full flex-col p-7 transition-colors hover:border-accent">
+                  <h3 className="text-[22px] leading-tight font-bold tracking-[-0.03em] group-hover:text-accent">{a.title}</h3>
                   <p className="mt-3 text-[15.5px] text-muted">{a.description}</p>
                   <span className="mt-auto pt-6 text-[14px] text-dim">{a.readingMinutes} min read →</span>
                 </Link>

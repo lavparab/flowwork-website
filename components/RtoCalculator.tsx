@@ -113,7 +113,7 @@ export default function RtoCalculator({
   return (
     <div className="card overflow-hidden" role="group" aria-labelledby={`${id}-title`}>
       <div className="flex items-center gap-2.5 border-b border-line px-[18px] py-3.5">
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#232323]" aria-hidden>
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-avatar" aria-hidden>
           <Mark className="h-[18px] w-[18px] text-lime" />
         </span>
         <div>
@@ -122,7 +122,7 @@ export default function RtoCalculator({
           </Heading>
           <p className="text-[12px] text-dim">RTO calculator · monthly</p>
         </div>
-        <span className="ml-auto hidden rounded-full border border-[#2f3a22] px-2.5 py-1 text-[12px] text-lime xs:block">
+        <span className="ml-auto hidden rounded-full border border-accent/25 px-2.5 py-1 text-[12px] text-accent xs:block">
           Estimate
         </span>
       </div>
@@ -173,17 +173,17 @@ export default function RtoCalculator({
 
         <div className="mt-3 flex flex-col gap-1.5" aria-live="polite">
           <p className="msg msg-in calc-msg flex gap-2.5">
-            <Mark className="mt-[3px] h-4 w-4 shrink-0 text-lime" />
+            <Mark className="mt-[3px] h-4 w-4 shrink-0 text-accent" />
             <span>
               That’s <b className="font-semibold text-text">{count(parcels)} parcels</b> coming back every month, and{" "}
               <b className="font-semibold text-text">{inr(lost)}</b> lost to returns.
             </span>
           </p>
           <div className="msg msg-in calc-msg flex gap-2.5">
-            <Mark className="mt-[3px] h-4 w-4 shrink-0 text-lime" />
+            <Mark className="mt-[3px] h-4 w-4 shrink-0 text-accent" />
             <div>
               <p className="text-[13.5px] text-muted">Back in your pocket every month</p>
-              <p className="mt-1 text-[clamp(34px,9vw,42px)] leading-none font-bold tracking-[-0.045em] text-lime tabular-nums">
+              <p className="mt-1 text-[clamp(34px,9vw,42px)] leading-none font-bold tracking-[-0.045em] text-accent tabular-nums">
                 {inr(saved)}
               </p>
               <p className="mt-1.5 text-[13.5px] text-muted">{inr(saved * 12)} a year</p>

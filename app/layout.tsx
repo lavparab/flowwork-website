@@ -7,6 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import Nav from "@/components/Nav";
 import { OG_IMAGE, ORG_ID, WEBSITE_ID } from "@/lib/seo";
 import { PHONE_E164, SITE, SOCIAL_LINKS } from "@/lib/site";
+import { THEME_COLORS, THEME_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 // "optional": Inter is preloaded and used if it's ready at first paint; if it isn't,
@@ -50,8 +51,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0A0A",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
+  ],
+  colorScheme: "dark light",
 };
 
 const siteGraph = {
@@ -96,7 +100,11 @@ const siteGraph = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${plexMono.variable}`}>
+    // suppressHydrationWarning: the theme script sets data-theme before React loads.
+    <html lang="en-IN" className={`${inter.variable} ${plexMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <JsonLd data={siteGraph} />
         <a

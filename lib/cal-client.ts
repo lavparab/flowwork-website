@@ -2,6 +2,7 @@
 
 import { track } from "./analytics";
 import { CAL_NAMESPACE } from "./cal";
+import { currentTheme, type Theme } from "./theme";
 
 /**
  * Loads the Cal.com embed on demand instead of on every page view, so no
@@ -38,8 +39,8 @@ export function ensureCal() {
   Cal.config = { ...Cal.config, forwardQueryParams: true };
   const ns = Cal.ns![CAL_NAMESPACE];
   ns("ui", {
-    theme: "dark",
-    cssVarsPerTheme: { dark: { "cal-brand": "#C1FF72" } },
+    theme: currentTheme(),
+    cssVarsPerTheme: { dark: { "cal-brand": "#C1FF72" }, light: { "cal-brand": "#0A0A0A" } },
     hideEventTypeDetails: false,
     layout: "month_view",
   });
@@ -47,4 +48,9 @@ export function ensureCal() {
     action: "bookingSuccessful",
     callback: () => track("generate_lead", { method: "cal_com" }),
   });
+}
+
+/** Keeps an already-loaded calendar in step with the site's theme toggle. */
+export function setCalTheme(theme: Theme) {
+  window.Cal?.ns?.[CAL_NAMESPACE]?.("ui", { theme });
 }

@@ -5,10 +5,10 @@ export const CAL_NAMESPACE = "ai-automation-audit-with-lavparab";
 // Plain-URL fallback so the CTA still works if the embed script is blocked or slow.
 export const CAL_URL = `https://cal.com/${CAL_LINK}`;
 
+// Add the page's current theme when opening: { ...CAL_MODAL_CONFIG, theme: currentTheme() }.
 export const CAL_MODAL_CONFIG = {
   layout: "month_view",
   useSlotsViewOnSmallScreen: "true",
-  theme: "dark",
 } as const;
 
 type CalApi = (...args: unknown[]) => void;

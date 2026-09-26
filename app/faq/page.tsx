@@ -58,7 +58,7 @@ export default function FaqPage() {
                 <li key={g.title}>
                   <a
                     href={`#${slug(g.title)}`}
-                    className="block rounded-full border border-line px-4 py-2 text-[15px] text-muted transition-colors hover:text-text lg:rounded-none lg:border-0 lg:border-l lg:px-4 lg:py-2.5 lg:hover:border-lime"
+                    className="block rounded-full border border-line px-4 py-2 text-[15px] text-muted transition-colors hover:text-text lg:rounded-none lg:border-0 lg:border-l lg:px-4 lg:py-2.5 lg:hover:border-accent"
                   >
                     {g.title}
                   </a>

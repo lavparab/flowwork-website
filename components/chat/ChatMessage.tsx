@@ -59,7 +59,7 @@ export default function ChatMessage({
 export function ChatAvatar({ initial, size = 36 }: { initial: string; size?: number }) {
   return (
     <div
-      className="grid shrink-0 place-items-center rounded-full bg-[#232323] font-bold text-lime"
+      className="grid shrink-0 place-items-center rounded-full bg-avatar font-bold text-lime"
       style={{ width: size, height: size, fontSize: size * 0.39 }}
       aria-hidden
     >
