@@ -28,9 +28,10 @@ export default function FloatingWhatsApp() {
       <WhatsAppLink
         location="floating"
         text="Hi Flowwork, I'd like to know more."
-        className="flex h-14 items-center gap-2.5 rounded-full border border-lime/40 bg-ink/90 pr-5 pl-4 text-[15px] font-semibold text-lime shadow-[0_10px_40px_rgba(0,0,0,.5)] backdrop-blur-md transition-colors hover:bg-lime hover:text-ink"
+        // Dark pill on dark pages, white pill on light ones; lime on hover in both.
+        className="group flex h-14 items-center gap-2.5 rounded-full border border-lime/40 bg-ink/90 pr-5 pl-4 text-[15px] font-semibold text-lime shadow-[0_10px_40px_rgba(0,0,0,.5)] backdrop-blur-md transition-colors hover:border-lime hover:bg-lime hover:text-ink light:border-line-strong light:bg-s1/90 light:text-text light:shadow-[0_10px_30px_rgba(0,0,0,.12)]"
       >
-        <WhatsAppIcon className="h-6 w-6" />
+        <WhatsAppIcon className="h-6 w-6 light:text-accent light:group-hover:text-ink" />
         <span>
           Chat<span className="hidden sm:inline"> on WhatsApp</span>
         </span>

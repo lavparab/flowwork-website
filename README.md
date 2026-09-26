@@ -38,9 +38,9 @@ No prices appear anywhere on the site. The FAQ says quotes come after the audit.
 
 The site follows the visitor's system light/dark setting until they use the sun/moon
 button in the nav; their choice is then remembered in the browser. In light mode,
-lime is only used as a fill (chat bubbles, the popular package, headline highlights):
-primary buttons turn black with lime text, and green text uses a darker `accent`
-shade, because plain lime is unreadable on a light background. Use `text-accent`
+lime is only used as a fill (buttons, chat bubbles, the popular package, headline
+highlights) and green text uses a darker `accent` shade, because plain lime text is
+unreadable on a light background. Use `text-accent`
 rather than `text-lime` for green text, and `hl` for highlighted headline words.
 
 ## Pages

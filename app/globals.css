@@ -37,9 +37,7 @@
   --color-prose: #cfcfca;
   /* Lime as text or a thin line. Plain lime is unreadable on a light background. */
   --color-accent: #c1ff72;
-  /* Primary buttons: lime on dark, black with lime text on light. */
-  --color-cta: #c1ff72;
-  --color-cta-text: #0a0a0a;
+  /* Primary button hover: lighter lime on dark, a deeper lime on light. */
   --color-cta-hover: #d2ff96;
   /* Chat */
   --color-bubble: #1c1c1c;
@@ -78,9 +76,7 @@
   --color-dim: #686862;
   --color-prose: #2b2b28;
   --color-accent: #3d6e00;
-  --color-cta: #0a0a0a;
-  --color-cta-text: #c1ff72;
-  --color-cta-hover: #262626;
+  --color-cta-hover: #b4f15c;
   --color-bubble: #eeeee9;
   --color-bubble-hover: #e4e4de;
   --color-pressed: #e3f4c9;
@@ -112,9 +108,7 @@
     --color-dim: #686862;
     --color-prose: #2b2b28;
     --color-accent: #3d6e00;
-    --color-cta: #0a0a0a;
-    --color-cta-text: #c1ff72;
-    --color-cta-hover: #262626;
+    --color-cta-hover: #b4f15c;
     --color-bubble: #eeeee9;
     --color-bubble-hover: #e4e4de;
     --color-pressed: #e3f4c9;
@@ -387,8 +381,8 @@ cal-inline {
     transform: translateX(3px);
   }
   .btn-lime {
-    background: var(--color-cta);
-    color: var(--color-cta-text);
+    background: var(--color-lime);
+    color: var(--color-ink);
   }
   .btn-lime:hover {
     background: var(--color-cta-hover);
