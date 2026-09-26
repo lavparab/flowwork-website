@@ -17,7 +17,7 @@ const inter = Inter({
   display: "optional",
 });
 
-// Only used for the calculator receipt and a few labels, so don't preload it on every page.
+// Only used for a few small labels, so don't preload it on every page.
 const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],

@@ -26,7 +26,7 @@ Opens on http://localhost:3000.
 | Resource guides (list, titles, dates) and their pages | [`lib/articles.ts`](lib/articles.ts), `app/resources/<slug>/page.tsx` |
 | Client testimonials (the section stays hidden while this is empty) | [`lib/proof.ts`](lib/proof.ts) |
 | Page titles, descriptions, canonical and share tags | `pageMeta()` in [`lib/seo.ts`](lib/seo.ts), called at the top of each page |
-| Colours, fonts, chat bubble and receipt styles | [`app/globals.css`](app/globals.css) |
+| Colours, fonts, chat bubble and calculator styles | [`app/globals.css`](app/globals.css) |
 | Privacy policy and terms (update the date at the top when you change them) | [`app/privacy/page.tsx`](app/privacy/page.tsx), [`app/terms/page.tsx`](app/terms/page.tsx) |
 
 Packages stack: Growth Engine includes COD Shield, and Revenue OS includes Growth
