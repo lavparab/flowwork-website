@@ -215,18 +215,36 @@ cal-inline {
     color: var(--color-accent);
   }
 
+  /* The small label above each page title: a chip with a live "online" dot. The
+     16px radius is a full pill on one line and still tidy if a long label wraps. */
   .kicker {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 14px;
+    gap: 9px;
+    max-width: 100%;
+    padding: 6px 14px 6px 12px;
+    border: 1px solid var(--color-line);
+    border-radius: 16px;
+    background: var(--color-s1);
+    font-size: 13.5px;
+    line-height: 1.35;
     color: var(--color-muted);
   }
   .kicker::before {
     content: "";
-    width: 18px;
-    height: 1px;
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
     background: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 22%, transparent);
+  }
+  @media (max-width: 400px) {
+    .kicker {
+      gap: 8px;
+      padding: 5px 12px 5px 10px;
+      font-size: 12.5px;
+    }
   }
 
   /* Highlighted words in headlines: lime on dark, a lime marker stroke on light. */

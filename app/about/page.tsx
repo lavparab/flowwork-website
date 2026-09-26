@@ -50,7 +50,7 @@ export default function AboutPage() {
       <JsonLd data={breadcrumbLd([{ name: "About", path: "/about" }])} />
 
       <PageHeader
-        eyebrow="About Flowwork, a WhatsApp automation agency in Pune"
+        eyebrow="WhatsApp automation agency in Pune"
         title={
           <>
             Automation that pays for itself. <span className="text-muted">That’s the whole brief.</span>
