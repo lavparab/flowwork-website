@@ -155,11 +155,12 @@ body {
   overflow-x: clip;
 }
 
-/* Cal.com's booking iframe declares no color-scheme. If it inherits our dark one,
-   the browser paints it with an opaque white canvas behind the dark booker. */
+/* Cal.com's booking iframe sets the same color-scheme as the theme we pass it. The
+   element around it must match, or the browser paints an opaque canvas behind the
+   booker (a grey band across the screen in dark mode). */
 cal-modal-box,
 cal-inline {
-  color-scheme: light;
+  color-scheme: inherit;
 }
 
 ::selection {
