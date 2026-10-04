@@ -81,6 +81,10 @@ right place.
 
 ## Analytics and Search Console
 
+Vercel Web Analytics is always on (`<VercelAnalytics />` in `app/layout.tsx`). It's
+cookieless and needs no env vars. It only collects data on Vercel deployments, and
+only once Analytics is enabled for the project in the Vercel dashboard.
+
 Copy `.env.example` and fill in the values, locally in `.env.local` and in Vercel →
 Settings → Environment Variables:
 
