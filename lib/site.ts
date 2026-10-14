@@ -5,7 +5,7 @@ export const SITE = {
   city: "Pune",
   region: "Maharashtra",
   country: "India",
-  whatsappDisplay: "+91 75078 30937",
+  whatsappDisplay: "+91 96658 30589",
   /** Leave empty to hide email everywhere (the legal pages fall back to WhatsApp). */
   email: "",
   /** Where you take on clients. Shown on the site and in structured data. */
