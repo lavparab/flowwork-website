@@ -98,9 +98,9 @@ export default function PackagesPage() {
                               <path d="M5.8 10.3l2.8 2.8 5.6-6" fill="none" style={{ stroke: "var(--color-canvas)" }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                           ) : (
-                            <span className="text-dim" aria-label="Not included">
-                              –
-                            </span>
+                            <svg viewBox="0 0 20 20" className="inline-block h-5 w-5 align-middle text-dim" role="img" aria-label="Not included">
+                              <circle cx="10" cy="10" r="3" fill="currentColor" />
+                            </svg>
                           )}
                         </td>
                       ))}

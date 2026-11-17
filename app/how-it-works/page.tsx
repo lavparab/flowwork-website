@@ -156,7 +156,7 @@ export default function HowItWorksPage() {
                 <h3 className="font-semibold">Probably not for you</h3>
                 <ul className="mt-4 space-y-3">
                   {NOT_FIT.map((f) => (
-                    <li key={f} className="flex gap-3 text-[15px] text-dim before:content-['–']">
+                    <li key={f} className="bullet-dim flex gap-3 text-[15px] text-dim">
                       {f}
                     </li>
                   ))}
