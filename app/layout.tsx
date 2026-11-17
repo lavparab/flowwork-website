@@ -1,6 +1,7 @@
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Inter } from "next/font/google";
+import Script from "next/script";
 import Analytics from "@/components/Analytics";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Footer from "@/components/Footer";
@@ -122,6 +123,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <FloatingWhatsApp />
         <Analytics />
         <VercelAnalytics />
+        {/* Umami (self-hosted). data-domains keeps localhost and preview visits out of the stats. */}
+        <Script
+          src="https://stats.theflowwork.com/script.js"
+          data-website-id="b72db914-4a86-44c7-a42c-47d78e511508"
+          data-domains="theflowwork.com,www.theflowwork.com"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
