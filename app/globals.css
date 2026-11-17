@@ -501,6 +501,17 @@ cal-inline {
     margin-top: 0.62em;
   }
 
+  /* Same dot as .bullet-lime, in the muted colour, for "not a fit" lists. */
+  .bullet-dim::before {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-dim);
+    margin-top: 0.62em;
+  }
+
   /* -------------------------------------------------------------- chat */
   .msg {
     max-width: 84%;
